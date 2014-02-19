@@ -1,10 +1,7 @@
 extends layout
 
 block content
-  .title
-    a(href="/logout") #{user.email}
-  form(id="create-word", method="POST", action="/word/new")
-    textarea(type="text", name="original", placeholder="hablar")
-    textarea(type="text", name="translation", placeholder="speak")
-    .submit
+  a(href="/word/new") Add word
+  a(href="/word/list") Words
+  a(href="/logout") Lougout #{user.email}
 
