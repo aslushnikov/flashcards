@@ -14,7 +14,7 @@ module.exports = {
         instanceCache : false,
     },
     auth: {
-        realm: "http://localhost:3000",
+        realm: "http://192.168.1.100:3000",
         cookieSessionSecret: "whatismysecret?!",
     },
     registration: {
