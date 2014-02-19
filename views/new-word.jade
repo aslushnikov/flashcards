@@ -3,8 +3,8 @@ extends layout
 block content
   .title
     a(href="/") #{user.email}
-  form(id="create-word", method="POST", action="/word/new")
+  form.word-block(id="create-word", method="POST", action="/word/new")
     textarea(type="text", name="original", placeholder="hablar")
     textarea(type="text", name="translation", placeholder="speak")
-    .submit-word
+    .button.submit-word
 

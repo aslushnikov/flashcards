@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  a(href="/word/new") Add word
-  a(href="/word/list") Words
-  a(href="/logout") Lougout #{user.email}
+  .menu
+      a(href="/word/new") Add word
+      a(href="/word/list") Words
+      a(href="/train") Train spanish->english
+      a(href="/train#reverse") Train english->spanish
+      a(href="/logout") Logout #{user.email}
 

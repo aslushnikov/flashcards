@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  script window.words = !{JSON.stringify(words)};
+  .title
+    a(href="/") #{user.email}
+  .word-block
+    textarea(type="text", name="original", placeholder="clic para traducir", readonly=true)
+    textarea(type="text", name="translation", placeholder="click to translate", readonly=true)
+    .button.next-word
+
