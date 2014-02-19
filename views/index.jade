@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to oWeMe!
+  p User: #{user.firstName} #{user.lastName} - #{user.email} 
+    a(href="/user/edit") Edit
+  p
+    a(href="/logout") Logout
+  h2 New debt:
+  form(method="POST", action="/loan/new")
+    select(name="relation")
+      option(value="owe") I owe
+      option(value="lend") I lend
+    input(type="number", name="value", placeholder="300")
+    | RUB to
+    input(type="email", name="email", placeholder="example@gmail.com")
+    | for
+    input(type="text", name="comment", placeholder="nightclub")
+    input(type="submit")
+  h2 Debts:
+  ul
+    each val in debts
+      li= val.prettyValue() + " to " + val.lender + " for " + val.comment + " "
+        a(href="/loan/resolve/#{val.id}") Resolve
+  h2 Loans:
+  ul
+    each val in loans
+      li= val.prettyValue() + " to " + val.debtor + " for " + val.comment + " "
+        a(href="/loan/resolve/#{val.id}") Resolve
+  h2 History:
+  ul
+    each val in history
+      li= val.debtor + " owes " + val.prettyValue() + " to " + val.lender + " for "  + val.comment
+  h2 Notifications:
+  ul
+    each val in notifications
+      li= "from: " + val.from + " to: " + val.to + " text: " + val.text
