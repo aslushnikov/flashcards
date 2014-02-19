@@ -1,8 +1,60 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 a {
   color: #00B7FF;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.title a {
+    display: block;
+    text-align: center;
+    font-size: 16pt;
+    text-decoration: none;
+}
+
+#create-word {
+    flex-direction: column;
+    display: flex;
+    flex: 1 1 auto;
+}
+
+#create-word textarea {
+    text-align: center;
+    padding-top: 30%;
+    font-size: 20px;
+    width: 100%;
+    flex: 1 1 auto;
+}
+
+.submit {
+    flex: 1 2 auto;
+    background-color: green;
+    margin: 1ex;
+    border: 1px solid black;
+    position: relative;
+}
+
+.submit::before {
+    content: "+";
+    display: block;
+    position: absolute;
+    color: white;
+    font-size: 40pt;
+    text-align: center;
+    width: 100%;
+    height: 100%;
 }
