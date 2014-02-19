@@ -26,8 +26,3 @@ gulp.task("db/clear", function() {
     return clearDatabase(config);
 });
 
-gulp.task("db/fill", function() {
-    var fill = require("./tasks/fill-database.js");
-    return fill(config);
-});
-
