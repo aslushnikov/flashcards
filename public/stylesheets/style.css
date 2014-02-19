@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 a {
@@ -92,5 +93,16 @@ body {
 
 .menu a {
     display: block;
-    padding-top: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.login-page {
+    text-align: center;
+    font-size: 16pt;
+    padding-top: 40%;
+}
+
+.login-text {
+    padding-bottom: 1em;
 }

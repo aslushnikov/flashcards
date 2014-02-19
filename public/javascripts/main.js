@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("textarea[name=original]").focus();
     $(".submit-word").click(function() {
         var btn = $(this);
         btn.addClass("disabled");
@@ -11,14 +12,21 @@ $(document).ready(function() {
             // clear all text area fields
             form.find("textarea").val('');
             btn.removeClass("disabled");
+            $("textarea[name=original]").focus();
         });
+    })
+    $("#create-word").keypress(function(e) {
+        if(e.which == 13) {
+            jQuery(this).blur();
+            jQuery('.submit-word').focus().click();
+        }
     });
 });
 
 // training script
 $(document).ready(function() {
     // this script is only for training url
-    if (!window.words)
+    if (!window.words || !window.words.length)
         return;
     roll();
     $(".next-word").click(function() {

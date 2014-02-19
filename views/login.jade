@@ -1,19 +1,8 @@
 extends layout
 
 block content
-  h1 Login page
-  a(href="/auth/google") Login with google
-  p
-    h3 Login with user/password
-    form(method="post", action="/login")
-      div
-        label email:
-        input(type="email", name="email", placeholder="example@gmail.com")
-      div
-        label password:
-        input(type="password", name="password")
-      div
-        input(type="submit")
-  p
-    a(href="/user/new") Registration
-
+  .login-page
+    .login-suffix Click
+    a(href="/auth/google")
+      img(src="/images/goog.png")
+    .login-postfix to login

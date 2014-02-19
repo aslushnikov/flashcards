@@ -2,9 +2,9 @@ extends layout
 
 block content
   .title
-    a(href="/") #{user.email}
+    a(href="/") Menu
   form.word-block(id="create-word", method="POST", action="/word/new")
     textarea(type="text", name="original", placeholder="hablar")
     textarea(type="text", name="translation", placeholder="speak")
-    .button.submit-word
+    .button.submit-word(tabindex=0)
 
