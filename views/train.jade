@@ -1,5 +1,9 @@
 extends layout
 
+block scripts
+  script(type="text/javascript", src="/javascripts/jquery-2.1.0.min.js")
+  script(type="text/javascript", src="/javascripts/train.js")
+
 block content
   script window.words = !{JSON.stringify(words)};
   .title

@@ -1,8 +1,12 @@
 extends layout
 
+block styles
+  link(rel="stylesheet", href="stylesheets/login.css")
+
 block content
-  .login-page
-    .login-suffix Click
-    a(href="/auth/google")
-      img(src="/images/goog.png")
-    .login-postfix to login
+  .content
+    .login
+      .login-suffix Click
+      a(href="/auth/google")
+        img(src="/images/goog.png")
+      .login-postfix to login

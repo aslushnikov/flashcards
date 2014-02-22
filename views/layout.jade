@@ -1,13 +1,12 @@
 doctype html
 html
   head
-    meta(name="viewport", content="width=device-width, user-scalable=no")
+    meta(name="viewport", content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
     meta(http-equiv="cache-control", content="no-cache")
     meta(http-equiv="pragma", content="no-cache")
     title= title
-
+    block scripts
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script(type="text/javascript", src="/javascripts/jquery-2.1.0.min.js")
-    script(type="text/javascript", src="/javascripts/main.js")
+    block styles
   body
     block content
