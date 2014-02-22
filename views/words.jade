@@ -1,5 +1,8 @@
 extends layout
 
+block styles
+  link(rel="stylesheet", href="/stylesheets/words.css")
+
 block content
   .title
     a(href="/") Menu
@@ -7,5 +10,6 @@ block content
     each word in words
       .word
         .original #{word.original}
+        .translation #{word.translation}
 
 

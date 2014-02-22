@@ -1,0 +1,8 @@
+.word .original {
+    font-size: 14pt;
+}
+
+.word:nth-child(odd) {
+    background-color: #CCC;
+}
+

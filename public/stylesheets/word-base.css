@@ -1,28 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: "Helvetica Neue", sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    height: 100%;
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    padding: 1ex;
-}
-
 .title a {
     display: block;
     text-align: center;
@@ -90,20 +65,3 @@ body {
     content: "next";
 }
 
-.word .original {
-    font-size: 14pt;
-}
-
-.word:nth-child(odd) {
-    background-color: #CCC;
-}
-
-.menu {
-    font-size: 14pt;
-}
-
-.menu a {
-    display: block;
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
