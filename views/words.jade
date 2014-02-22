@@ -6,10 +6,13 @@ block styles
 block content
   .title
     a(href="/") Menu
-  .words
-    each word in words
-      .word
-        .original #{word.original}
-        .translation #{word.translation}
+  h3
+    | Words: #{words.length}
+  table.words
+    tbody
+      each word in words
+        tr.word
+          td.translation #{word.translation}
+          td.original #{word.original}
 
 

@@ -1,4 +1,12 @@
-.word .original {
+table.words {
+    width: 100%;
+}
+
+.words thead {
+    text-align: center;
+}
+
+.word {
     font-size: 14pt;
 }
 
@@ -6,3 +14,15 @@
     background-color: #CCC;
 }
 
+.translation {
+    padding-left: 1ex;
+}
+
+.original {
+    text-align: right;
+    padding-right: 1ex;
+}
+
+.title {
+    float: left;
+}
