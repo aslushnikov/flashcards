@@ -1,21 +1,11 @@
-[![Build Status](https://travis-ci.org/aslushnikov/oweme.png?branch=master)](https://travis-ci.org/aslushnikov/oweme)
+# Flashcards, simple & minimalistic
 
-# WIP
+## Problem
 
-## MySQL setup
+Most of flash-card apps are overwhelmed with functionality - thus its
+not cool to use any of those. Here is my attempt to make a
+super minimalistic flashcard service.
 
-MySQL should use UTF-8 all over the place; this should be placed in `my.cnf` file to achieve this.
+## Status
 
-```
-[client]
-default-character-set=utf8
-
-[mysql]
-default-character-set=utf8
-
-[mysqld]
-collation-server = utf8_unicode_ci
-init-connect='SET NAMES utf8'
-character-set-server = utf8
-```
-
+Under construction.
