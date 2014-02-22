@@ -8,4 +8,4 @@ super minimalistic flashcard service.
 
 ## Status
 
-Under construction.
+Under construction. Mobile Safari is the main target at the moment.
