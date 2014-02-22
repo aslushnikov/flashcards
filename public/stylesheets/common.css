@@ -11,10 +11,6 @@ html {
 
 body {
     height: 100%;
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     padding: 1ex;
 }

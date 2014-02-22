@@ -1,13 +1,11 @@
 table.words {
     width: 100%;
-}
-
-.words thead {
-    text-align: center;
+    table-layout:fixed
 }
 
 .word {
     font-size: 14pt;
+    word-wrap:break-word
 }
 
 .word:nth-child(odd) {
@@ -24,5 +22,12 @@ table.words {
 }
 
 .title {
-    float: left;
+    font-size: 16pt;
+}
+
+.back {
+}
+
+.stats {
+    float: right;
 }

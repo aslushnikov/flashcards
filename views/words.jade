@@ -5,9 +5,8 @@ block styles
 
 block content
   .title
-    a(href="/") Menu
-  h3
-    | Words: #{words.length}
+    a.back(href="/") Menu
+    .stats Words: #{words.length}
   table.words
     tbody
       each word in words
