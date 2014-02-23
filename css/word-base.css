@@ -1,8 +1,6 @@
 body {
     display: flex;
-    display: -webkit-flex;
     flex-direction: column;
-    -webkit-flex-direction: column;
 }
 .title a {
     display: block;
@@ -13,11 +11,8 @@ body {
 
 .word-block {
     flex-direction: column;
-    -webkit-flex-direction: column;
     display: flex;
-    display: -webkit-flex;
     flex: 1 1 auto;
-    -webkit-flex: 1 1 auto;
 }
 
 .word-block > * {
@@ -29,13 +24,11 @@ body {
     font-size: 20px;
     width: 100%;
     flex: 1 1 auto;
-    -webkit-flex: 1 1 auto;
     padding-top: 2em;
 }
 
 .button {
     flex: 1 2 auto;
-    -webkit-flex: 1 2 auto;
     background-color: green;
     border: 1px solid black;
     position: relative;

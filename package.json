@@ -17,7 +17,8 @@
     "passport-local": "~0.1.6",
     "bcrypt": "~0.7.7",
     "connect-sse": "~1.0.5",
-    "request": "~2.33.0"
+    "request": "~2.33.0",
+    "gulp-autoprefixer": "0.0.6"
   },
   "devDependencies": {
     "gulp-util": "~2.2.9",

@@ -1,5 +1,6 @@
 var gulp = require("gulp")
   , gutil = require("gulp-util")
+  , prefix = require('gulp-autoprefixer')
   , orm = require("orm")
   , database = require("./lib/database")
   , Q = require("q")
@@ -26,3 +27,15 @@ gulp.task("db/clear", function() {
     return clearDatabase(config);
 });
 
+gulp.task("css/prefix", function() {
+    gulp.src("./css/*.css")
+    .pipe(prefix("last 2 versions", "> 1%"))
+    .pipe(gulp.dest("./public/stylesheets"))
+});
+
+gulp.task("default", function() {
+    // watch for CSS changes
+    gulp.watch("css/*.css", function() {
+        gulp.run("css/prefix");
+    });
+});
