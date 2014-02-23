@@ -1,6 +1,7 @@
 var gulp = require("gulp")
   , gutil = require("gulp-util")
   , prefix = require('gulp-autoprefixer')
+  , nodemon = require('gulp-nodemon')
   , orm = require("orm")
   , database = require("./lib/database")
   , Q = require("q")
@@ -38,4 +39,7 @@ gulp.task("default", function() {
     gulp.watch("css/*.css", function() {
         gulp.run("css/prefix");
     });
+    nodemon({ script: 'app.js', ext: 'html js', ignore: ['public/'] })
+    .on('restart', [])
+
 });
