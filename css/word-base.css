@@ -29,38 +29,24 @@ body {
 
 .button {
     flex: 1 2 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: green;
     border: 1px solid black;
     position: relative;
 }
 
-.button::before {
-    display: block;
-    position: absolute;
+.button .text {
     color: white;
     font-size: 40pt;
-    text-align: center;
-    width: 100%;
-    height: 100%;
 }
 
 .submit-word.disabled {
     background-color: gray;
 }
 
-.submit-word.disabled::before {
-    content: "..."
-}
-
-.submit-word::before {
-    content: "+";
-}
-
 .next-word {
-    background-color: lightgray;
-}
-
-.next-word::before {
-    content: "next";
+    background-color: green;
 }
 
