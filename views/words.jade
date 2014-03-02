@@ -3,15 +3,21 @@ extends layout
 block styles
   link(rel="stylesheet", href="/stylesheets/words.css")
 
+block scripts
+  script(src="/javascripts/words.js", type="text/javascript")
+
 block content
+  template#word-details-template
+    .details this is test
+
   .title
     a.back(href="/") Menu
     .stats Words: #{words.length}
-  table.words
-    tbody
-      each word in words
-        tr.word
-          td.translation #{word.translation}
-          td.original #{word.original}
+  .words
+    each word in words
+      .word-container
+        .dictionary-entry
+          .translation #{word.translation}
+          .original #{word.original}
 
 
