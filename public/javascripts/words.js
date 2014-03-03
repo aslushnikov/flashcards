@@ -28,10 +28,19 @@ function hideWordDetails(wordContainer)
     wordContainer.classList.remove("show-details");
 }
 
+function hideAllDetails()
+{
+    var openedDetails = document.querySelectorAll(".show-details");
+    for (var i = 0; i < openedDetails.length; ++i)
+        hideWordDetails(openedDetails[i]);
+}
+
 function onWordClick(wordContainer)
 {
-    if (wordContainer.classList.contains("show-details"))
+    if (wordContainer.classList.contains("show-details")) {
         hideWordDetails(wordContainer);
-    else
+    } else {
+        hideAllDetails();
         showWordDetails(wordContainer);
+    }
 }

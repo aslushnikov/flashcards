@@ -22,13 +22,6 @@ var testUser2 = {
     password: "tasteslikepepsicola",
 };
 
-var testDebt = {
-    relation: "owe",
-    email: testUser2.email,
-    value: 200,
-    comment: "nightclub"
-};
-
 function clone(config)
 {
     return JSON.parse(JSON.stringify(config));

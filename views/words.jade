@@ -8,14 +8,17 @@ block scripts
 
 block content
   template#word-details-template
-    .details this is test
+    .details
+      .button.edit Edit
+      .button.remove Remove
+      script(src="/javascripts/word-details.js")
 
   .title
     a.back(href="/") Menu
     .stats Words: #{words.length}
   .words
     each word in words
-      .word-container
+      .word-container(x-word-id="#{word.id}")
         .dictionary-entry
           .translation #{word.translation}
           .original #{word.original}
