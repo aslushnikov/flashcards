@@ -15,11 +15,17 @@ var testUser1 = {
     email: "amigo@paradise.com",
     password: "callmemaybe",
 };
+
 var testUser2 = {
     firstName: "Hablar",
     lastName: "Menceran",
     email: "hablar@menceran.com",
     password: "tasteslikepepsicola",
+};
+
+var testWord = {
+    original: "hablar",
+    translation: "speak"
 };
 
 function clone(config)
@@ -118,24 +124,6 @@ describe("Action", function() {
                 done();
             })
         });
-
-        it("should create second user with identical email if existing was inactive for too long", function(done) {
-            var tUser = clone(testUser1);
-            tUser.password = "";
-            // custom config
-            var customConfig = clone(config);
-            customConfig.registration.inactiveUserDropTimeout = 0;
-            // custom actions
-            var customActions = new Actions(db, eventBus, customConfig);
-            customActions.createNewUser(tUser)
-            .then(customActions.createNewUser.bind(this, testUser1))
-            .then(function() {
-                done(new Error("Two users successfully created"));
-            })
-            .fail(function(err) {
-                done();
-            })
-        });
     });
 
     /**
@@ -174,30 +162,6 @@ describe("Action", function() {
             })
             .fail(done)
         });
-
-        it("should remove outdated user", function(done) {
-            var tUser3 = clone(testUser1);
-            tUser3.password = "";
-            // custom config
-            var customConfig = clone(config);
-            customConfig.registration.inactiveUserDropTimeout = 0;
-            // custom actions
-            var customActions = new Actions(db, eventBus, customConfig);
-            customActions.createNewUser(tUser3)
-            // here we'll find active and drop inactive
-            .then(customActions.findUsersWithEmail.bind(customActions, tUser3.email))
-            .then(function(users) {
-                users.length.should.be.equal(0);
-                // test that DB has only one user
-                var User = db.models.user;
-                return Q.denodeify(User.find.bind(User))({email: testUser1.email})
-            })
-            .then(function(users) {
-                users.length.should.be.equal(0);
-                done();
-            })
-            .fail(done)
-        });
     });
 
     /**
@@ -228,152 +192,27 @@ describe("Action", function() {
 
 
     /**
-     * Actions.createNewDebt
+     * Actions.createNewWord
      */
-    describe("createNewDebt", function() {
-        it("should create new debt", function(done) {
+    describe("createNewWord", function() {
+        it("should create new word", function(done) {
+            var user, word;
             actions.createNewUser(testUser1)
-            .then(function(user) {
-                return actions.createNewDebt(user, testDebt);
+            .then(function(_user) {
+                user = _user;
+                return actions.createNewWord(user, testWord);
             })
-            .then(function(loan) {
-                loan.value.should.be.equal(testDebt.value);
-                loan.lender.should.be.equal(testDebt.email);
-                loan.debtor.should.be.equal(testUser1.email);
-                loan.active.should.be.true;
-                done();
+            .then(function(_word) {
+                word = _word;
+                word.user.should.be.equal(user);
+                word.original.should.be.equal(testWord.original);
+                word.translation.should.be.equal(testWord.translation);
+                return Q.denodeify(user.getWords.bind(user))();
             })
-            .fail(done);
-        });
-
-        it("should resolve user debt", function(done) {
-            var user;
-            actions.createNewUser(testUser1)
-            .then(function(u) {
-                user = u;
-                return actions.createNewDebt(user, testDebt);
-            })
-            .then(function(loan) {
-                return actions.resolveUserDebtWithId(user, loan.id)
-            })
-            .then(function(loan) {
-                loan.active.should.be.false;
-                done();
-            })
-            .fail(done);
-        });
-
-        it("should create notification", function(done) {
-            var loan;
-            var user, user2;
-            // create first user
-            actions.createNewUser(testUser1)
-            .then(function(u) {
-                user = u;
-                return actions.createNewDebt(user, testDebt);
-            })
-            // create debt
-            .then(function(l) {
-                loan = l;
-                return actions.createNewUser(testUser2);
-            })
-            // create second user
-            .then(function(u2) {
-                user2 = u2;
-                var Notification = db.models.notification;
-                return Q.denodeify(Notification.find.bind(Notification))({})
-            })
-            // count notifications
-            .then(function(notifs) {
-                notifs.length.should.be.equal(1);
-                var notif = notifs[0];
-                notif.from.should.be.equal(testUser1.email);
-                notif.to.should.be.equal(testUser2.email);
-            })
-            // resolve debt as the second user
-            .then(function() {
-                return actions.resolveUserDebtWithId(user2, loan.id);
-            })
-            .then(function(loan) {
-                var Notification = db.models.notification;
-                return Q.denodeify(Notification.find.bind(Notification))({})
-            })
-            // count notifications
-            .then(function(notifs) {
-                notifs.length.should.be.equal(2);
-                notifs.sort(function(a, b) {
-                    return a.creationDate - b.creationDate;
-                });
-                notifs[0].from.should.be.equal(testUser1.email);
-                notifs[0].to.should.be.equal(testUser2.email);
-                notifs[1].from.should.be.equal(testUser2.email);
-                notifs[1].to.should.be.equal(testUser1.email);
-                done();
-            })
-            .fail(done);
-        });
-
-        it("should emit event with notification for new debt", function(done) {
-            eventBus.once("notification", function(notification) {
-                notification.from.should.be.equal(testUser1.email);
-                notification.to.should.be.equal(testUser2.email);
-                done();
-            });
-            actions.createNewUser(testUser1)
-            .then(function(user) {
-                return actions.createNewDebt(user, testDebt);
-            })
-            .fail(done);
-        });
-
-        it("should emit event with notification for resolved debt", function(done) {
-            var loan;
-            actions.createNewUser(testUser1)
-            .then(function(user) {
-                return actions.createNewDebt(user, testDebt);
-            })
-            .then(function(l) {
-                loan = l;
-                return actions.createNewUser(testUser2)
-            })
-            .then(function(user) {
-                eventBus.once("notification", function(notification) {
-                    notification.from.should.be.equal(testUser2.email);
-                    notification.to.should.be.equal(testUser1.email);
-                    done();
-                });
-                actions.resolveUserDebtWithId(user, loan.id);
-            })
-            .fail(done);
-        });
-    });
-
-    /**
-     * Actions.dismissNotification
-     */
-    describe("dismissUserNotification", function() {
-        it("should dismiss user notification", function(done) {
-            var Notification = db.models.notification;
-            var user;
-            actions.createNewUser(testUser1)
-            .then(function(u) {
-                user = u;
-                return actions.createNewDebt(user, testDebt);
-            })
-            .then(function(debt) {
-                // find all notifications
-                return Q.denodeify(Notification.find.bind(Notification))()
-            })
-            .then(function(notifs) {
-                notifs.length.should.be.equal(1);
-                return actions.dismissUserNotification(user, notifs[0].id);
-            })
-            .then(function(debt) {
-                // find all notifications
-                return Q.denodeify(Notification.find.bind(Notification))()
-            })
-            .then(function(notifs) {
-                notifs.length.should.be.equal(0);
+            .then(function(words) {
+                words.should.have.length(1);
+                words[0].translation.should.be.equal(word.translation);
+                words[0].original.should.be.equal(word.original);
                 done();
             })
             .fail(done);

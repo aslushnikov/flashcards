@@ -5,7 +5,7 @@ var gulp = require("gulp")
   , orm = require("orm")
   , database = require("./lib/database")
   , Q = require("q")
-  , config = require(process.env.OWEME_CONFIG || "./config.js")
+  , config = require(process.env.FLASHCARDS_CONFIG || "./config.js")
   , dbTasks = require("./tasks/db-tasks")
 
 gulp.task("db/reset", function() {

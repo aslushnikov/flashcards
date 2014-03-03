@@ -7,7 +7,7 @@ var express = require('express')
   , path = require('path')
   , Q = require("q")
   , database = require("./lib/database")
-  , config = require(process.env.OWEME_CONFIG || "./config.js")
+  , config = require(process.env.FLASHCARDS_CONFIG || "./config.js")
   , Actions = require("./lib/actions")
   , EventEmitter = require("events").EventEmitter
 
