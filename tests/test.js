@@ -190,7 +190,6 @@ describe("Action", function() {
         })
     });
 
-
     /**
      * Actions.createNewWord
      */
@@ -213,6 +212,36 @@ describe("Action", function() {
                 words.should.have.length(1);
                 words[0].translation.should.be.equal(word.translation);
                 words[0].original.should.be.equal(word.original);
+                done();
+            })
+            .fail(done);
+        });
+    });
+
+    /**
+     * Actions.removeWord
+     */
+    describe("removeWord", function() {
+        it("should remove user's word", function(done) {
+            var user, word;
+            actions.createNewUser(testUser1)
+            .then(function(_user) {
+                user = _user;
+                return actions.createNewWord(user, testWord);
+            })
+            .then(function(_word) {
+                word = _word;
+                return Q.denodeify(user.getWords.bind(user))();
+            })
+            .then(function(words) {
+                words.should.have.length(1);
+                return actions.removeWord(user, words[0].id);
+            })
+            .then(function() {
+                return Q.denodeify(user.getWords.bind(user))();
+            })
+            .then(function(words) {
+                words.should.have.length(0);
                 done();
             })
             .fail(done);
