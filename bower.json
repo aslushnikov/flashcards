@@ -1,0 +1,20 @@
+{
+  "name": "flashcards",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aslushnikov/flashcards",
+  "authors": [
+    "Andrey Lushnikov <aslushnikov@gmail.com>"
+  ],
+  "description": "Simplistic service for flashcards",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "~3.0.0"
+  }
+}

@@ -43,6 +43,7 @@ function setUpServer(database)
     require("./lib/auth")(app, actions, config);
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use("/bower_components", express.static(path.join(__dirname, 'bower_components')));
 
     // development only
     if ('development' == app.get('env')) {
