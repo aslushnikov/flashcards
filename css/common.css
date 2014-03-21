@@ -2,17 +2,18 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Helvetica Neue", sans-serif;
 }
 
-html {
-    height: 100%;
+.fill {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
 }
 
 body {
-    height: 100%;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    padding: 1ex;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 a {

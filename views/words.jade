@@ -1,7 +1,7 @@
 extends layout
 
 block head
-  link(rel="stylesheet", href="/stylesheets/words.css")
+  link(rel="stylesheet", href="/stylesheets/screen-words.css")
   script(src="/javascripts/words.js", type="text/javascript")
 
 block content
@@ -10,9 +10,8 @@ block content
     .stats Words: #{words.length}
   .words
     each word in words
-      .word-container(x-word-id="#{word.id}")
-        .dictionary-entry
-          .translation #{word.translation}
-          .original #{word.original}
+      a.dictionary-entry(href="/word/edit/#{word.id}")
+        .translation #{word.translation}
+        .original #{word.original}
 
 

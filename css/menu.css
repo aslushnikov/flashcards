@@ -1,15 +1,11 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .menu {
     font-size: 14pt;
     text-align: center;
 }
 
-.menu a {
+.menu > a {
     display: block;
     padding-top: 1em;
     padding-bottom: 1em;
 }
+
