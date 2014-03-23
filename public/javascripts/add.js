@@ -18,7 +18,7 @@ function addWord() {
 }
 
 $(document).ready(function() {
-    $(".entry").click(function(e) {
+    $(".entry").on("click", function(e) {
         $(this).find(".input").focus();
     });
     $(".title-item.right > a").click(function() {
