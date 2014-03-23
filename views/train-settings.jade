@@ -1,0 +1,22 @@
+extends layout
+
+block head
+  link(rel="stylesheet", href="/stylesheets/title.css")
+  link(rel="stylesheet", href="/stylesheets/train-settings.css")
+  script(src="/bower_components/jquery-hammerjs/jquery.hammer-full.min.js")
+  script(src="/javascripts/train-settings.js")
+
+block content
+  .title
+    a.title-item.left(href="/") Menu
+    a.title-item.right(href="/train/start/#{wordId}") Train
+  .settings
+    fieldset.tag-options
+      legend Tags
+      .tag-setting.all-words
+        input(type="checkbox")
+        label All words
+      each tag in tags
+        .tag-setting.regular
+          input(type="checkbox")
+          label #{tag}
