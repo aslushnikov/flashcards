@@ -18,6 +18,8 @@ function addWord() {
 }
 
 $(document).ready(function() {
+    // Cannot really use hammer here as it arises problems with
+    // focusing input.
     $(".entry").on("click", function(e) {
         $(this).find(".input").focus();
     });
@@ -30,11 +32,25 @@ $(document).ready(function() {
 $(document).ready(function() {
     var activeTagCloud = $(".active-tags > .tagcloud");
     var allTagCloud = $(".all-tags > .tagcloud");
-    $(".tag").hammer().on("tap", function(e) {
-        if (activeTagCloud.has($(this)).length) {
-            allTagCloud.append(this);
-        } else {
-            activeTagCloud.append(this);
-        }
+    function setupTagListeners(tags)
+    {
+        tags.hammer().on("tap", function(e) {
+            if (activeTagCloud.has($(this)).length) {
+                allTagCloud.prepend(this);
+            } else {
+                activeTagCloud.append(this);
+            }
+        });
+    }
+    setupTagListeners($(".tag"));
+    // Setup new tag button listener.
+    $(".new-tag-button").hammer().on("tap", function(e) {
+        var result = prompt("New tag name");
+        if (!result)
+            return;
+        var tag = $("<div class='tag'>" + result + "</div>");
+        setupTagListeners(tag);
+        activeTagCloud.append(tag);
     });
 });
+
