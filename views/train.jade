@@ -1,16 +1,24 @@
 extends layout
 
 block head
-  link(rel="stylesheet", href="/stylesheets/word-base.css")
-  script(type="text/javascript", src="/javascripts/jquery-2.1.0.min.js")
+  link(rel="stylesheet", href="/stylesheets/title.css")
+  link(rel="stylesheet", href="/stylesheets/train.css")
+  script(src="/bower_components/jquery-hammerjs/jquery.hammer-full.min.js")
   script(type="text/javascript", src="/javascripts/train.js")
 
 block content
-  script window.bootstrapWords = !{JSON.stringify(words)};
   .title
-    a(href="/") Menu
-  .word-block
-    textarea(type="text", name="original", placeholder="clic para traducir", readonly=true)
-    textarea(type="text", name="translation", placeholder="click to translate", readonly=true)
-    .button.next-word
-      .text next
+    a.title-item.left(href="/") Menu
+    a.title-item.right(href="/word/edit/#{wordId}") Edit
+  .box.question
+    fieldset
+      legend Translation
+    .text.question Speak
+  .box.answer
+    fieldset
+      legend Original
+    .text.answer Hablar
+  .buttons
+    .button.fail.first-letter First letter
+    .button.next Next
+  script window.bootstrapWords = !{JSON.stringify(words)};

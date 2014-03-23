@@ -1,8 +1,18 @@
 $(document).ready(function() {
     if (!window.bootstrapWords || !window.bootstrapWords.length)
         return;
-    $(".next-word").click(function() {
+    $(".button.next").hammer().on("tap", function() {
         roll();
+    });
+    $(".button.fail").hammer().on("tap", function() {
+        var elem = $(this);
+        if (!elem.hasClass("step2")) {
+            elem.addClass("step2");
+            $(".text.answer").text(currentWordAnswer().substr(0, 1));
+            elem.text("Whole word");
+        } else {
+            $(".text.answer").text(currentWordAnswer());
+        }
     });
 
     var words = window.bootstrapWords;
@@ -19,8 +29,8 @@ $(document).ready(function() {
         }
     }
 
-    function currentWord() {
-        return words[currentWordIndex];
+    function currentWordAnswer() {
+        return words[currentWordIndex].original;
     }
 
     function nextWord() {
@@ -28,26 +38,13 @@ $(document).ready(function() {
             currentWordIndex = 0;
             shuffle(words);
         }
+        return words[currentWordIndex];
     }
 
     function roll() {
-        var section = $(".word-block");
-        // get the form of the event target
-        var orig = section.find("textarea[name=original]");
-        var trans = section.find("textarea[name=translation]");
-        nextWord();
-        if (window.location.hash === "#reverse") {
-            orig.val("");
-            trans.val(currentWord().translation);
-        } else {
-            orig.val(currentWord().original);
-            trans.val("");
-        }
+        var word = nextWord();
+        $(".text.question").text(word.translation);
+        $(".text.answer").text("");
+        $(".button.fail").removeClass("step2").text("First letter");
     }
-    $("textarea[name=original]").click(function() {
-        $(this).val(currentWord().original);
-    });
-    $("textarea[name=translation]").click(function() {
-        $(this).val(currentWord().translation);
-    });
 });

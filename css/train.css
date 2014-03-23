@@ -1,0 +1,60 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    flex: none;
+}
+
+.box {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    border-width: 1px 0px 0px 0px;
+    padding-bottom: 0px;
+    color: #c0c0c0;
+    flex: none;
+}
+
+.text.question, .text.answer {
+    flex: auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.buttons {
+    border-top: 1px solid #c0c0c0;
+    flex: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    border: 2px solid #c0c0c0;
+    flex: auto;
+    margin: 1ex;
+    padding: 1ex;
+    display: flex;
+    justify-content: center;
+}
+
+.button.next {
+    border-color: #10c310;
+}
+
+.button.fail {
+    border-color: #1010c3;
+}
+
+.button.fail.step2 {
+    border-color: #c31010;
+}
+
