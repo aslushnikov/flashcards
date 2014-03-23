@@ -28,6 +28,12 @@ var testWord = {
     translation: "speak"
 };
 
+var testWordWithTags = {
+    original: "hablar",
+    translation: "speak",
+    tags: ["basic", "common"]
+};
+
 function clone(config)
 {
     return JSON.parse(JSON.stringify(config));
@@ -194,7 +200,7 @@ describe("Action", function() {
      * Actions.createNewWord
      */
     describe("createNewWord", function() {
-        it("should create new word", function(done) {
+        it("should create new word without tags", function(done) {
             var user, word;
             actions.createNewUser(testUser1)
             .then(function(_user) {
@@ -206,6 +212,35 @@ describe("Action", function() {
                 word.user.should.be.equal(user);
                 word.original.should.be.equal(testWord.original);
                 word.translation.should.be.equal(testWord.translation);
+                return Q.denodeify(user.getWords.bind(user))();
+            })
+            .then(function(words) {
+                words.should.have.length(1);
+                words[0].translation.should.be.equal(word.translation);
+                words[0].original.should.be.equal(word.original);
+                done();
+            })
+            .fail(done);
+        });
+        it("should create new word with tags", function(done) {
+            var user, word;
+            actions.createNewUser(testUser1)
+            .then(function(_user) {
+                user = _user;
+                return actions.createNewWord(user, testWordWithTags);
+            })
+            .then(function(_word) {
+                word = _word;
+                word.user.should.be.equal(user);
+                word.original.should.be.equal(testWord.original);
+                word.translation.should.be.equal(testWord.translation);
+                return Q.denodeify(word.getTags.bind(word))();
+            })
+            .then(function(tags) {
+                tags.should.have.length(2);
+                var names = [tags[0].name, tags[1].name];
+                names.should.containEql(testWordWithTags.tags[0]);
+                names.should.containEql(testWordWithTags.tags[1]);
                 return Q.denodeify(user.getWords.bind(user))();
             })
             .then(function(words) {
