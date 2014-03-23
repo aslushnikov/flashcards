@@ -14,9 +14,17 @@ block content
     fieldset.tag-options
       legend Tags
       .tag-setting.all-words
-        input(type="checkbox")
+        input(type="checkbox", checked)
         label All words
       each tag in tags
         .tag-setting.regular
-          input(type="checkbox")
+          input(type="checkbox", value="#{tag}", disabled)
           label #{tag}
+    fieldset.train-type
+      legend Type
+      .type-setting
+        input(type="radio", name="training-type", value="translation", checked)
+        label Given translation, recall original
+      .type-setting
+        input(type="radio", name="training-type", value="original")
+        label Given original, recall translation
