@@ -248,6 +248,7 @@ describe("Action", function() {
                 words[0].translation.should.be.equal(word.translation);
                 words[0].original.should.be.equal(word.original);
                 db.models.user.get(user.id, function(err, u) {
+                    if (err) return done(err);
                     u.tags.should.have.length(2);
                     done();
                 });
@@ -256,6 +257,34 @@ describe("Action", function() {
         });
     });
 
+    /**
+     * Actions.ensureTagsForUser
+     */
+    describe("ensureTagsForUser", function() {
+        it("should ensure tags for user", function(done) {
+            var user;
+            actions.createNewUser(testUser1)
+            .then(function(_user) {
+                user = _user;
+                return actions.ensureTagsForUser(user, ["tag", " tag", "tag ", " tag  ", "  bag"])
+            })
+            .then(function(tags) {
+                tags.should.have.length(2);
+                var names = tags.map(function(value) { return value.name; });
+                names.should.containEql("tag");
+                names.should.containEql("bag");
+                return Q.denodeify(user.getTags.bind(user))();
+            })
+            .then(function(tags) {
+                tags.should.have.length(2);
+                var names = tags.map(function(value) { return value.name; });
+                names.should.containEql("tag");
+                names.should.containEql("bag");
+                done();
+            })
+            .fail(done);
+        });
+    });
     /**
      * Actions.removeWord
      */
