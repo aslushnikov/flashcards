@@ -22,7 +22,7 @@ function submitWord(url) {
             stub.success();
     })
     .fail(function(obj, err, errDescr) {
-        stub.failure(errDescr);
+        stub.failure("Error: " + errDescr);
     })
 }
 
