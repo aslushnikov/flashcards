@@ -13,5 +13,7 @@ block content
       a.dictionary-entry(href="/word/edit/#{word.id}")
         .translation #{word.translation}
         .original #{word.original}
-
+        .tags
+          each tag in word.tags
+            .tag #{tag.name}
 

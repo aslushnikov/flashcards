@@ -19,13 +19,23 @@ gulp.task("db/reset", function() {
 });
 
 gulp.task("db/drop", function() {
-    var dropDatabase = require("./tasks/drop-database.js");
-    return dropDatabase(config);
+    return database.connect(config)
+    .then(function(db) {
+        return dbTasks.drop(db);
+    })
+    .then(function(db) {
+        return Q.denodeify(db.close.bind(db))();
+    })
 });
 
 gulp.task("db/clear", function() {
-    var clearDatabase = require("./tasks/clear-database.js");
-    return clearDatabase(config);
+    return database.connect(config)
+    .then(function(db) {
+        return dbTasks.clear(db);
+    })
+    .then(function(db) {
+        return Q.denodeify(db.close.bind(db))();
+    })
 });
 
 gulp.task("css/prefix", function() {

@@ -7,6 +7,7 @@ function wordData() {
     return {
         original: $(".entry.original > .input").text(),
         translation: $(".entry.translation > .input").text(),
+        tags: $(".active-tags > .tagcloud > .tag").toArray().map(function(value) { return value.textContent; })
     };
 }
 

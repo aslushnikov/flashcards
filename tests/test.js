@@ -247,7 +247,10 @@ describe("Action", function() {
                 words.should.have.length(1);
                 words[0].translation.should.be.equal(word.translation);
                 words[0].original.should.be.equal(word.original);
-                done();
+                db.models.user.get(user.id, function(err, u) {
+                    u.tags.should.have.length(2);
+                    done();
+                });
             })
             .fail(done);
         });

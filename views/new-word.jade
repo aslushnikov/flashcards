@@ -22,21 +22,8 @@ block content
       legend Active tags
       .tagcloud
         .new-tag-button New tag
-        .tag all
-        .tag bitch
     fieldset.all-tags
       legend All tags
       .tagcloud
-        .tag days
-        .tag months
-        .tag stars
-        .tag victory
-        .tag room
-        .tag navigation
-        .tag activities
-        .tag mac os
-        .tag tech
-        .tag communication
-        .tag food
-        .tag duolingo
-        .tag other
+        each tag in user.tags
+          .tag #{tag.name}
