@@ -10,6 +10,10 @@ block content
     a.title-item.left(href="/") Menu
     .title-item.right Words: #{words.length}
   .dictionary
+    .header.entry
+      div Original
+      div Tags
+      div Translation
     each word in words
       a.entry(href="/word/edit/#{word.id}")
         .original #{word.original}
