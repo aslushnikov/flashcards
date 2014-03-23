@@ -19,7 +19,7 @@ gulp.task("db/reset", function() {
 });
 
 gulp.task("db/drop", function() {
-    return database.connect(config)
+    return database.connect(config, true)
     .then(function(db) {
         return dbTasks.drop(db);
     })
