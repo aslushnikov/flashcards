@@ -52,6 +52,7 @@
 fieldset.active-tags, fieldset.all-tags {
     border-width: 1px 0px 0px 0px;
     border-color: black;
+    flex: none;
 }
 
 .tagcloud {
@@ -68,7 +69,6 @@ fieldset.active-tags, fieldset.all-tags {
 .all-tags > .tagcloud {
     justify-content: center;
 }
-
 
 .tag {
     padding: 0.5ex;

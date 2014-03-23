@@ -30,7 +30,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     var activeTagCloud = $(".active-tags > .tagcloud");
     var allTagCloud = $(".all-tags > .tagcloud");
-    $(".tag").click(function(e) {
+    $(".tag").hammer().on("tap", function(e) {
         if (activeTagCloud.has($(this)).length) {
             allTagCloud.append(this);
         } else {
