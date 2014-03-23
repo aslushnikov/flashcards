@@ -15,7 +15,7 @@ block content
       div Tags
       div Translation
     each word in words
-      a.entry(href="/word/edit/#{word.id}")
+      a.entry(href="/word/edit/#{word.id}", data-word-id="#{word.id}")
         .original #{word.original}
         .tags #{word.tags.map(function(value) { return value.name; }).join(", ")}
         .translation #{word.translation}

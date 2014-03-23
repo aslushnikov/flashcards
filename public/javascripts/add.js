@@ -15,7 +15,11 @@ function submitWord(url) {
     var stub = new App.Stub($(".content"));
     $.post(url, wordData())
     .done(function() {
-        stub.success();
+        var callback = $("meta[data-callback]").attr("data-callback");
+        if (callback)
+            window.location = callback;
+        else
+            stub.success();
     })
     .fail(function(obj, err, errDescr) {
         stub.failure(errDescr);
