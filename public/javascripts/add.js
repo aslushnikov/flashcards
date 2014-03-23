@@ -1,25 +1,40 @@
+/** Autofocus */
 $(document).ready(function() {
-    $("textarea[name=original]").focus();
-    $(".submit-word").click(function() {
-        var btn = $(this);
-        btn.addClass("disabled");
-        // get the form of the event target
-        var form = $(btn).parents('form:first');
-        // send ajax request
-        $.post(form.attr("action"), form.serialize())
-        .always(function(err, data) {
-            console.log(arguments);
-            // clear all text area fields
-            form.find("textarea").val('');
-            btn.removeClass("disabled");
-            $("textarea[name=original]").focus();
-        });
-    })
-    $("#create-word").keypress(function(e) {
-        if(e.which == 13) {
-            jQuery(this).blur();
-            jQuery('.submit-word').focus().click();
-        }
+    $("[autofocus]").focus();
+});
+
+function wordData() {
+    return {
+        original: $(".entry.original > .input").text(),
+        translation: $(".entry.translation > .input").text(),
+    };
+}
+
+function addWord() {
+    $.post("/word/new", wordData())
+    .always(function(err, data) {
+        console.log(arguments);
+    });
+}
+
+$(document).ready(function() {
+    $(".entry").click(function(e) {
+        $(this).find(".input").focus();
+    });
+    $(".title-item.right > a").click(function() {
+        addWord();
     });
 });
 
+/** Setup tag listeners */
+$(document).ready(function() {
+    var activeTagCloud = $(".active-tags > .tagcloud");
+    var allTagCloud = $(".all-tags > .tagcloud");
+    $(".tag").click(function(e) {
+        if (activeTagCloud.has($(this)).length) {
+            allTagCloud.append(this);
+        } else {
+            activeTagCloud.append(this);
+        }
+    });
+});

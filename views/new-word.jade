@@ -1,14 +1,34 @@
 extends layout
 
 block head
-  link(rel="stylesheet", href="/stylesheets/word-base.css")
+  link(rel="stylesheet", href="/stylesheets/new-word.css")
   script(src="/javascripts/add.js")
 
 block content
   .title
-    a(href="/") Menu
-  form.word-block(id="create-word", method="POST", action="/word/new")
-    textarea(type="text", name="original", placeholder="hablar")
-    textarea(type="text", name="translation", placeholder="speak")
-    .button.submit-word(tabindex=0)
-      .text +
+    .title-item.left
+      a(href="/") Menu
+    .title-item.right
+      a Add
+  .form
+    fieldset.entry.original
+      legend Original
+      .input(contenteditable="true", autofocus)
+    fieldset.entry.translation
+      legend Translation
+      .input(contenteditable="true")
+    fieldset.active-tags
+      legend Active tags
+      .tagcloud
+        .tag all
+        .tag bitch
+    fieldset.all-tags
+      legend All tags
+      .tagcloud
+        .tag days
+        .tag months
+        .tag stars
+        .tag victory
+        .tag room
+        .tag navigation
+        .tag activities
