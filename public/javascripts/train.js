@@ -1,6 +1,13 @@
 $(document).ready(function() {
     if (!window.bootstrapWords || !window.bootstrapWords.length)
         return;
+    if (window.questionType === "original") {
+        $(".box.question legend").text("Original");
+        $(".box.answer legend").text("Translation");
+    } else {
+        $(".box.answer legend").text("Original");
+        $(".box.question legend").text("Translation");
+    }
     $(".button.next").hammer().on("tap", function() {
         roll();
     });
@@ -29,8 +36,12 @@ $(document).ready(function() {
         }
     }
 
+    function currentWordQuestion() {
+        return window.questionType === "original" ? words[currentWordIndex].original : words[currentWordIndex].translation;
+    }
+
     function currentWordAnswer() {
-        return words[currentWordIndex].original;
+        return window.questionType === "original" ? words[currentWordIndex].translation : words[currentWordIndex].original;
     }
 
     function nextWord() {
@@ -43,7 +54,7 @@ $(document).ready(function() {
 
     function roll() {
         var word = nextWord();
-        $(".text.question").text(word.translation);
+        $(".text.question").text(currentWordQuestion());
         $(".text.answer").text("");
         $(".button.fail").removeClass("step2").text("First letter");
     }
