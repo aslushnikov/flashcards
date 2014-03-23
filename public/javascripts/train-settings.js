@@ -10,6 +10,7 @@ $(document).ready(function() {
         if (checkbox.prop("disabled")) {
             $(".tag-setting.regular > input").prop("disabled", false);
             $(".tag-setting.all-words > input").prop("checked", false);
+            return;
         }
         checkbox.prop('checked', !checkbox.prop("checked"));
         e.preventDefault();
