@@ -231,27 +231,25 @@ describe("Action", function() {
             })
             .then(function(_word) {
                 word = _word;
-                word.user.should.be.equal(user);
                 word.original.should.be.equal(testWord.original);
                 word.translation.should.be.equal(testWord.translation);
-                return Q.denodeify(word.getTags.bind(word))();
+                return word.fetchUser();
+            })
+            .then(function(wordUser) {
+                wordUser.id.should.be.equal(user.id);
+                return word.fetchTags();
             })
             .then(function(tags) {
                 tags.should.have.length(2);
-                var names = [tags[0].name, tags[1].name];
-                names.should.containEql(testWordWithTags.tags[0]);
-                names.should.containEql(testWordWithTags.tags[1]);
-                return Q.denodeify(user.getWords.bind(user))();
+                tags.should.containEql(testWordWithTags.tags[0]);
+                tags.should.containEql(testWordWithTags.tags[1]);
+                return user.fetchWords();
             })
             .then(function(words) {
                 words.should.have.length(1);
                 words[0].translation.should.be.equal(word.translation);
                 words[0].original.should.be.equal(word.original);
-                db.models.user.get(user.id, function(err, u) {
-                    if (err) return done(err);
-                    u.tags.should.have.length(2);
-                    done();
-                });
+                done();
             })
             .fail(done);
         });
