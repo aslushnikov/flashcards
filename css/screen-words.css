@@ -5,13 +5,12 @@
 }
 
 .entry {
-    flex: none;
+    flex: auto;
     color: black;
     text-decoration: none;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    word-wrap: break-word;
 }
 
 .entry:nth-child(odd) {
@@ -27,13 +26,17 @@
 }
 
 .original {
-    flex: auto;
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: 30%;
     padding: 1ex 1ex 1ex 0;
 }
 
 .tags {
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-basis: 30%;
     font-size: 10pt;
-    flex: auto;
     text-align: center;
     display: flex;
     align-items: center;
@@ -41,8 +44,10 @@
 }
 
 .translation {
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: 30%;
     text-align: right;
-    flex: auto;
     padding: 1ex 0 1ex 1ex;
 }
 

@@ -11,9 +11,9 @@ function wordData() {
     };
 }
 
-function addWord() {
+function submitWord(url) {
     var stub = new App.Stub($(".content"));
-    $.post("/word/new", wordData())
+    $.post(url, wordData())
     .done(function() {
         stub.success();
     })
@@ -28,8 +28,9 @@ $(document).ready(function() {
     $(".entry").on("click", function(e) {
         $(this).find(".input").focus();
     });
-    $(".title-item.right").click(function() {
-        addWord();
+    $(".title-item.right").click(function(e) {
+        submitWord($(this).attr("href"));
+        e.preventDefault();
     });
 });
 

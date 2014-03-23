@@ -11,20 +11,25 @@ block head
 block content
   .title
     a.title-item.left(href="/") Menu
-    a.title-item.right Add
+    if wordId
+      a.title-item.right(href="/word/edit/#{wordId}") Update
+    else
+      a.title-item.right(href="/word/add") Add
   .form
     fieldset.entry.original
       legend Original
-      .input(contenteditable="true", autofocus)
+      .input(contenteditable="true", autofocus) #{original}
     fieldset.entry.translation
       legend Translation
-      .input(contenteditable="true")
+      .input(contenteditable="true") #{translation}
     fieldset.active-tags
       legend Active tags
       .tagcloud
         .new-tag-button New tag
+        each tag in activeTags
+          .tag #{tag}
     fieldset.all-tags
       legend All tags
       .tagcloud
-        each tag in user.tags
-          .tag #{tag.name}
+        each tag in allTags
+          .tag #{tag}
