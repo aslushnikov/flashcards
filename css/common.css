@@ -20,6 +20,20 @@ body {
     font-family: "Helvetica Neue", sans-serif;
 }
 
+@media(min-device-width:641px) {
+    body {
+        background-color: #EEE;
+    }
+    .content {
+        border-color: black;
+        border-width: 0 1px 0 1px;
+        border-style: solid;
+        background-color: white;
+        max-width: 800px;
+        margin: auto;
+    }
+}
+
 a {
   color: #00B7FF;
 }
