@@ -1,0 +1,26 @@
+.screen-stub {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 1000;
+    background-color: rgba(100, 100, 100, 0.7);
+    user-select: none;
+}
+
+.screen-stub > .text {
+    text-align: center;
+    margin: auto;
+    font-size: 40pt;
+    color: white;
+}
+
+.screen-stub.success > .text {
+    color: green;
+}
+
+.screen-stub.failure > .text {
+    color: red;
+}

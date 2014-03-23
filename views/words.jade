@@ -2,18 +2,17 @@ extends layout
 
 block head
   link(rel="stylesheet", href="/stylesheets/screen-words.css")
+  link(rel="stylesheet", href="/stylesheets/title.css")
   script(src="/javascripts/words.js", type="text/javascript")
 
 block content
   .title
-    a.back(href="/") Menu
-    .stats Words: #{words.length}
-  .words
+    a.title-item.left(href="/") Menu
+    .title-item.right Words: #{words.length}
+  .dictionary
     each word in words
-      a.dictionary-entry(href="/word/edit/#{word.id}")
-        .translation #{word.translation}
+      a.entry(href="/word/edit/#{word.id}")
         .original #{word.original}
-        .tags
-          each tag in word.tags
-            .tag #{tag.name}
+        .tags #{word.tags.map(function(value) { return value.name; }).join(", ")}
+        .translation #{word.translation}
 

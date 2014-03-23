@@ -12,10 +12,14 @@ function wordData() {
 }
 
 function addWord() {
+    var stub = new App.Stub($(".content"));
     $.post("/word/new", wordData())
-    .always(function(err, data) {
-        console.log(arguments);
-    });
+    .done(function() {
+        stub.success();
+    })
+    .fail(function(obj, err, errDescr) {
+        stub.failure(errDescr);
+    })
 }
 
 $(document).ready(function() {
@@ -24,7 +28,7 @@ $(document).ready(function() {
     $(".entry").on("click", function(e) {
         $(this).find(".input").focus();
     });
-    $(".title-item.right > a").click(function() {
+    $(".title-item.right").click(function() {
         addWord();
     });
 });

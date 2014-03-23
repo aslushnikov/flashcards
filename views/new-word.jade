@@ -1,16 +1,17 @@
 extends layout
 
 block head
+  link(rel="stylesheet", href="/stylesheets/title.css")
   link(rel="stylesheet", href="/stylesheets/new-word.css")
+  link(rel="stylesheet", href="/stylesheets/stub.css")
   script(src="/bower_components/jquery-hammerjs/jquery.hammer-full.min.js")
+  script(src="/javascripts/stub.js")
   script(src="/javascripts/add.js")
 
 block content
   .title
-    .title-item.left
-      a(href="/") Menu
-    .title-item.right
-      a Add
+    a.title-item.left(href="/") Menu
+    a.title-item.right Add
   .form
     fieldset.entry.original
       legend Original

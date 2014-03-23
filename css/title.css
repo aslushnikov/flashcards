@@ -1,0 +1,17 @@
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-item {
+    text-decoration: none;
+}
+
+.title-item.left {
+    order: 1;
+}
+
+.title-item.right {
+    order: 2;
+}
+

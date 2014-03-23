@@ -1,25 +1,6 @@
 .content {
     display: flex;
     flex-direction: column;
-    padding: 0.5ex;
-    font-size: 16pt;
-}
-
-.title {
-    display: flex;
-    justify-content: space-between;
-}
-
-.title-item {
-    text-decoration: none;
-}
-
-.title-item.left {
-    order: 1;
-}
-
-.title-item.right {
-    order: 2;
 }
 
 .form {
