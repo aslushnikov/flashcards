@@ -1,12 +1,14 @@
 module.exports = {
     database: {
+        host     : "127.0.0.1",
         database : "flashcards_test",
         protocol : "mysql",
-        host     : "127.0.0.1",
         port     : 3306,         // optional, defaults to database default
         user     : "root",
         password : "testpass",
-        debug    : false,
+        query: {
+            debug: false,
+        },
     },
     auth: {
         realm: "http://localhost:3000",
