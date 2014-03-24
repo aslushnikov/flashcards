@@ -10,7 +10,7 @@
 }
 
 .entry {
-    border: 1px solid black;
+    border: 1px solid #c0c0c0;
     margin-top: 0.5ex;
     overflow: auto;
     min-height: 4em;
@@ -31,7 +31,7 @@
 
 fieldset.active-tags, fieldset.all-tags {
     border-width: 1px 0px 0px 0px;
-    border-color: black;
+    border-color: #c0c0c0;
     flex: none;
 }
 
@@ -52,14 +52,14 @@ fieldset.active-tags, fieldset.all-tags {
 
 .tag {
     padding: 0.5ex;
-    border: 1px solid black;
+    border: 1px solid #c0c0c0;
     margin: 0.5ex;
 }
 
 .new-tag-button {
     text-align: center;
     padding: 0.5ex;
-    border: 1px solid black;
+    border: 1px solid #c0c0c0;
     margin: 0.5ex;
     background-color: #EEE;
 }
