@@ -11,12 +11,16 @@ $(document).ready(function() {
     $(".button.next").hammer().on("tap", function() {
         roll();
     });
+    $(".button.fail").hammer().on("hold", function() {
+        $(this).addClass("step2").text("Whole word");
+        $(".text.answer").text(currentWordAnswer().substr(0, 1));
+        $(".text.answer").text(currentWordAnswer());
+    })
     $(".button.fail").hammer().on("tap", function() {
         var elem = $(this);
         if (!elem.hasClass("step2")) {
-            elem.addClass("step2");
+            elem.addClass("step2").text("Whole word");
             $(".text.answer").text(currentWordAnswer().substr(0, 1));
-            elem.text("Whole word");
         } else {
             $(".text.answer").text(currentWordAnswer());
         }
