@@ -39,6 +39,12 @@ $(document).ready(function() {
         submitWord($(this).attr("href"));
         e.preventDefault();
     });
+    $(".entry > .input").keydown(function(e) {
+        if (e.which === 13) {
+            $(this).blur();
+            submitWord();
+        }
+    });
 });
 
 /** Setup tag listeners */
