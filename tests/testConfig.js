@@ -1,6 +1,6 @@
 module.exports = {
     database: {
-        database : "oweme_test",
+        database : "flashcards_test",
         protocol : "mysql",
         host     : "127.0.0.1",
         port     : 3306,         // optional, defaults to database default
