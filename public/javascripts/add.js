@@ -16,10 +16,13 @@ function submitWord(url) {
     $.post(url, wordData())
     .done(function() {
         var callback = $("meta[data-callback]").attr("data-callback");
-        if (callback)
+        if (callback) {
             window.location = callback;
-        else
+        } else {
             stub.success();
+            $(".entry.original > .input").text("").focus();
+            $(".entry.translation > .input").text("");
+        }
     })
     .fail(function(obj, err, errDescr) {
         stub.failure("Error: " + errDescr);
