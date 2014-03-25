@@ -28,6 +28,12 @@ fieldset {
     justify-content: center;
 }
 
+.text.answer {
+    /* setup a min-height for the text to avoid flexbox
+     * jumping when content get added there */
+    min-height: 2em;
+}
+
 .buttons {
     border-top: 1px solid #c0c0c0;
     flex: none;
@@ -38,6 +44,8 @@ fieldset {
 }
 
 .button {
+    cursor: pointer;
+    user-select: none;
     border: 2px solid #c0c0c0;
     flex: auto;
     margin: 1ex;

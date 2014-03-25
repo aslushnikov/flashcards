@@ -51,12 +51,16 @@ fieldset.active-tags, fieldset.all-tags {
 }
 
 .tag {
+    cursor: pointer;
+    user-select: none;
     padding: 0.5ex;
     border: 1px solid #c0c0c0;
     margin: 0.5ex;
 }
 
 .new-tag-button {
+    cursor: pointer;
+    user-select: none;
     text-align: center;
     padding: 0.5ex;
     border: 1px solid #c0c0c0;
