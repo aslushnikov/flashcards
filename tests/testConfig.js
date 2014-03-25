@@ -6,9 +6,7 @@ module.exports = {
         port     : 3306,         // optional, defaults to database default
         user     : "root",
         password : "testpass",
-        query: {
-            debug: false,
-        },
+        debug: false
     },
     auth: {
         realm: "http://localhost:3000",
