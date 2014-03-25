@@ -44,14 +44,3 @@ module.exports.reset = function(db)
     });
 }
 
-function ensureData(model, defaultValue)
-{
-    var find = Q.denodeify(model.find.bind(model));
-    var create = Q.denodeify(model.create.bind(model, defaultValue));
-    var clear = Q.denodeify(model.clear.bind(model));
-    return find().then(function(models) {
-        if (models.length !== defaultValue.length)
-            return clear().then(create);
-    })
-}
-
