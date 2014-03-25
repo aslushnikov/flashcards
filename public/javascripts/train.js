@@ -20,10 +20,18 @@ $(document).ready(function() {
         var elem = $(this);
         if (!elem.hasClass("step2")) {
             elem.addClass("step2").text("Whole word");
-            $(".text.answer").text(currentWordAnswer().substr(0, 1));
+            hintFirstLetter();
         } else {
-            $(".text.answer").text(currentWordAnswer());
+            revealAnswer();
         }
+    });
+    $("html").keydown(function(e) {
+        if (e.which === 13)
+            roll;
+        else if (e.which === 27)
+            hintFirstLetter();
+        else if (e.which === 32)
+            revealAnswer();
     });
 
     var words = window.bootstrapWords;
@@ -38,6 +46,14 @@ $(document).ready(function() {
             words[i] = words[position + i];
             words[position + i] = tmp;
         }
+    }
+
+    function hintFirstLetter() {
+        $(".text.answer").text(currentWordAnswer().substr(0, 1));
+    }
+
+    function revealAnswer() {
+        $(".text.answer").text(currentWordAnswer());
     }
 
     function currentWordQuestion() {
