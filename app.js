@@ -40,18 +40,18 @@ function setUpServer(database)
         },
     }));
     // setting up authentication middleware
-    require("./lib/auth")(app, actions, config);
-    app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
     app.use("/bower_components", express.static(path.join(__dirname, 'bower_components')));
+    require("./lib/auth")(app, actions, config);
+    app.use(app.router);
+
+    // setting up all routes
+    require("./lib/routes")(app, actions, config);
 
     // development only
     if ('development' == app.get('env')) {
         app.use(express.errorHandler());
     }
-
-    // setting up all routes
-    require("./lib/routes")(app, actions, config);
 
     http.createServer(app).listen(app.get('port'), function(){
         console.log('Express server listening on port ' + app.get('port'));
