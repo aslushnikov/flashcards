@@ -17,6 +17,6 @@ block content
     each word in words
       a.entry(href="/word/edit/#{word.id}", data-word-id="#{word.id}")
         .original #{word.original}
-        .tags #{word.tags.join(", ")}
+        .tags #{word.tagNames().join(", ")}
         .translation #{word.translation}
 
