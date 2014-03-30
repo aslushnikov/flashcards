@@ -132,24 +132,6 @@ describe("Action", function() {
         });
     });
 
-    /**
-     * Actions.editUser
-     */
-    describe("editUser", function() {
-        it("should allow user edit without password change", function(done) {
-            actions.createNewUser(testUser1)
-            .then(function(user) {
-                return actions.editUser(user, {
-                    firstName: "Matvey",
-                });
-            })
-            .then(function(editedUser) {
-                editedUser.firstName.should.be.equal("Matvey");
-                done();
-            })
-            .fail(done);
-        });
-    });
 
     /**
      * Actions.findUsersWithEmail
