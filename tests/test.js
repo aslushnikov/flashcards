@@ -130,7 +130,7 @@ describe("Action", function() {
                 done();
             })
         });
-    });
+    }); // Actions.createNewUser
 
 
     /**
@@ -150,7 +150,7 @@ describe("Action", function() {
             })
             .fail(done)
         });
-    });
+    }); // Actions.findUsersWithEmail
 
     /**
      * Actions.getUserById
@@ -176,7 +176,7 @@ describe("Action", function() {
                 done();
             })
         })
-    });
+    }); // Actions.getUserById
 
     /**
      * Actions.createNewWord
@@ -235,7 +235,7 @@ describe("Action", function() {
             })
             .fail(done);
         });
-    });
+    }); // Actions.createNewWord
 
     /**
      * Actions.ensureTagsForUser
@@ -264,7 +264,8 @@ describe("Action", function() {
             })
             .fail(done);
         });
-    });
+    }); // Actions.ensureTagsForUser
+
     /**
      * Actions.removeWord
      */
@@ -293,6 +294,6 @@ describe("Action", function() {
             })
             .fail(done);
         });
-    });
-});
+    }); // Actions.removeWord
+}); // Actions tests
 
