@@ -3,6 +3,11 @@ $(document).ready(function() {
         var element = $("[data-word-id=" + window.location.hash.substr(1) + "]");
         $('html, body').scrollTop(element.offset().top)
     }
+    if (window.location.search.indexOf("date") > -1) {
+        $(".sort-item.groupby-day").addClass("active");
+    } else {
+        $(".sort-item.alphabetically").addClass("active");
+    }
 });
 
 $(document).ready(function() {

@@ -11,8 +11,8 @@ block content
     a.title-item.left(href="/") Menu
     .title-item.right Words: #{words.length}
   .sort-order
-    .sort-item.alphabetically.active natural
-    .sort-item.groupby-day date
+    a.sort-item.alphabetically(href="/words?sort=natural") natural
+    a.sort-item.groupby-day(href="/words?sort=date") date
     .sort-item.groupby-tag tag
   .dictionary
     .header.entry

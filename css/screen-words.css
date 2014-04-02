@@ -12,6 +12,7 @@
 }
 
 .sort-order .sort-item {
+    text-decoration: none;
     min-width: 20%;
     text-align: center;
     border: 1px solid lightgray;
