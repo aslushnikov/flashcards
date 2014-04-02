@@ -4,6 +4,25 @@
     flex-direction: column;
 }
 
+.sort-order {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.sort-order .sort-item {
+    min-width: 20%;
+    text-align: center;
+    border: 1px solid lightgray;
+    margin: 2px;
+    width: 30%;
+}
+
+.sort-order .sort-item.active {
+    background-color: #EEE;
+}
+
 .entry {
     flex: auto;
     color: black;
