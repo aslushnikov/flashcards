@@ -7,21 +7,22 @@ block head
   script(src="/javascripts/words.js", type="text/javascript")
 
 block content
+  a.entry.template
+    .original
+    .tags
+    .translation
   .title
     a.title-item.left(href="/") Menu
     .title-item.right Words: #{words.length}
   .sort-order
-    a.sort-item.alphabetically(href="/words?sort=natural") natural
-    a.sort-item.groupby-day(href="/words?sort=date") date
+    .sort-item.alphabetically natural
+    .sort-item.groupby-day date
     .sort-item.groupby-tag tag
   .dictionary
-    .header.entry
+    .header
       div Original
       div Tags
       div Translation
-    each word in words
-      a.entry(href="/word/edit/#{word.id}", data-word-id="#{word.id}")
-        .original #{word.original}
-        .tags #{word.tagNames().join(", ")}
-        .translation #{word.translation}
+    .dictionary-container
 
+  script window.bootstrapWords = !{JSON.stringify(words)};

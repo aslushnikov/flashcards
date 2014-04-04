@@ -24,6 +24,10 @@ body {
     min-height: 100%;
 }
 
+.template {
+    display: none !important;
+}
+
 @media(min-device-width:641px) {
     body {
         background-color: #EEE;
