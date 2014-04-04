@@ -15,7 +15,7 @@ $(document).ready(function() {
         }
     });
 
-    renderWords();
+    renderWords(SortTypes.date);
 })
 
 function removeWord(wordId, callback)
@@ -49,15 +49,45 @@ function renderWord(word, template)
     return entry.get(0);
 }
 
-function renderWords()
+function stringifyDate(date)
 {
+    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+}
+
+var SortTypes = {
+    natural: "natural",
+    date: "date"
+};
+function renderWords(sortType)
+{
+    function naturalSort(word1, word)
+    {
+        if (word1.original < word2.original)
+            return -1;
+        if (word1.original > word2.original)
+            return 1;
+        return 0;
+    }
+
+    function dateSort(word1, word2)
+    {
+        return word1.creationDate - word2.creationDate;
+    }
+
     var words = this.bootstrapWords || [];
     if (!words.length)
         return;
+    words.sort(sortType === SortTypes.natural ? naturalSort : dateSort);
     var template = $(".entry.template");
     var fragment = document.createDocumentFragment();
+    var lastRenderedDate = "";
     for (var i = 0; i < words.length; ++i) {
         var word = words[i];
+        var wordDate = new Date(word.creationDate);
+        if (sortType === SortTypes.date && lastRenderedDate !== stringifyDate(wordDate)) {
+            lastRenderedDate = stringifyDate(wordDate);
+            fragment.appendChild(document.createTextNode(lastRenderedDate));
+        }
         var render = renderWord(word, template);
         fragment.appendChild(render);
     }
