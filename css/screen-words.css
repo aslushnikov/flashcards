@@ -76,3 +76,7 @@
     padding: 1ex 0 1ex 1ex;
 }
 
+.date {
+    text-align: center;
+    font-size: 12px;
+}

@@ -1,3 +1,7 @@
+var SortTypes = {
+    natural: "natural",
+    date: "date"
+};
 $(document).ready(function() {
     $(".sort-item.alphabetically").addClass("active");
     $(".dictionary").hammer().on("hold", function(e) {
@@ -15,7 +19,7 @@ $(document).ready(function() {
         }
     });
 
-    renderWords(SortTypes.date);
+    renderWords(SortTypes.natural);
 })
 
 function removeWord(wordId, callback)
@@ -49,18 +53,22 @@ function renderWord(word, template)
     return entry.get(0);
 }
 
+function renderDate(date, template)
+{
+    var node = template.clone();
+    node.removeClass("template");
+    node.text(date);
+    return node.get(0);
+}
+
 function stringifyDate(date)
 {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 }
 
-var SortTypes = {
-    natural: "natural",
-    date: "date"
-};
 function renderWords(sortType)
 {
-    function naturalSort(word1, word)
+    function naturalSort(word1, word2)
     {
         if (word1.original < word2.original)
             return -1;
@@ -71,14 +79,15 @@ function renderWords(sortType)
 
     function dateSort(word1, word2)
     {
-        return word1.creationDate - word2.creationDate;
+        return new Date(word2.creationDate) - new Date(word1.creationDate);
     }
 
     var words = this.bootstrapWords || [];
     if (!words.length)
         return;
     words.sort(sortType === SortTypes.natural ? naturalSort : dateSort);
-    var template = $(".entry.template");
+    var entryTemplate = $(".entry.template");
+    var dateTemplate = $(".date.template");
     var fragment = document.createDocumentFragment();
     var lastRenderedDate = "";
     for (var i = 0; i < words.length; ++i) {
@@ -86,9 +95,9 @@ function renderWords(sortType)
         var wordDate = new Date(word.creationDate);
         if (sortType === SortTypes.date && lastRenderedDate !== stringifyDate(wordDate)) {
             lastRenderedDate = stringifyDate(wordDate);
-            fragment.appendChild(document.createTextNode(lastRenderedDate));
+            fragment.appendChild(renderDate(lastRenderedDate, dateTemplate));
         }
-        var render = renderWord(word, template);
+        var render = renderWord(word, entryTemplate);
         fragment.appendChild(render);
     }
 
