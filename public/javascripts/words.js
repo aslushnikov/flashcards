@@ -18,6 +18,16 @@ $(document).ready(function() {
             entry.slideUp("fast");
         }
     });
+    $(".sort-item.alphabetically").hammer().on("tap", function(e) {
+        renderWords(SortTypes.natural);
+    });
+    $(".sort-item.groupby-day").hammer().on("tap", function(e) {
+        renderWords(SortTypes.date);
+    });
+    $(".sort-item").hammer().on("tap", function(e) {
+        $(".sort-item.active").removeClass("active");
+        $(e.target).addClass("active");
+    });
 
     renderWords(SortTypes.natural);
 })
