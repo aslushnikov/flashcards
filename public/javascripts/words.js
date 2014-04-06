@@ -1,4 +1,6 @@
 "use strict";
+var MONTHS_SHORT = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+
 function initializeWords()
 {
     for (var i = 0; i < bootstrapWords.length; ++i) {
@@ -122,7 +124,7 @@ function renderSection(template, sectionHeader)
 
 function formatDate(date)
 {
-    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    return MONTHS_SHORT[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 }
 
 function wordComparator(word1, word2)
@@ -148,7 +150,7 @@ function sortWordsNatural(table, words)
     var wordsPerSection = {};
     for (var i = 0; i < words.length; ++i) {
         var word = words[i];
-        var section = word.original.substr(0, 1);
+        var section = word.original.substr(0, 1).toUpperCase();
         if (!wordsPerSection[section]) {
             wordsPerSection[section] = [];
             sections.push(section);
