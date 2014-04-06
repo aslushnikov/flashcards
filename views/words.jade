@@ -15,7 +15,9 @@ block content
   .section.template
   .title
     a.title-item.left(href="/") Menu
-    .title-item.right Words: #{words.length}
+    .title-item.center Words:
+      span.count #{words.length}
+    a.title-item.right(href="#") Train
   .sort-order
     .sort-item.alphabetically natural
     .sort-item.groupby-day date

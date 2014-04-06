@@ -11,7 +11,11 @@
     order: 1;
 }
 
-.title-item.right {
+.title-item.center {
     order: 2;
+}
+
+.title-item.right {
+    order: 3;
 }
 

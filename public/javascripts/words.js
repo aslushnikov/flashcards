@@ -111,6 +111,7 @@ function sortWordsNatural(table, words)
         return;
     var rowTemplate = $(".entry.template");
     words.sort(wordComparator);
+    $(".title-item.center .count").text(words.length);
     table.render(["all"], {
         "all": words,
     }, renderRow.bind(null, rowTemplate));
@@ -120,6 +121,7 @@ function sortWordsByDate(table, words)
 {
     if (!words || !words.length)
         return;
+    $(".title-item.center .count").text(words.length);
     var wordsPerDate = {};
     var dates = [];
     for (var i = 0; i < words.length; ++i) {
@@ -131,8 +133,8 @@ function sortWordsByDate(table, words)
         wordsPerDate[formattedDate].push(words[i]);
     }
     for (var formattedDate in wordsPerDate) {
-        var words = wordsPerDate[formattedDate];
-        words.sort(wordComparator);
+        var w = wordsPerDate[formattedDate];
+        w.sort(wordComparator);
     }
     dates.sort(function(date1, date2) {
         return date2 - date1;
@@ -150,15 +152,21 @@ function sortWordsByTag(table, words, tags)
     var wordsPerTag = {};
     for (var i = 0; i < tags.length; ++i)
         wordsPerTag[tags[i]] = [];
+    var filteredWords = 0;
     for (var i = 0; i < words.length; ++i) {
         var word = words[i];
+        var isFiltered = false;
         for (var j = 0; j < word.tags.length; ++j) {
             var tag = word.tags[j].name;
             if (!wordsPerTag[tag])
                 continue;
             wordsPerTag[tag].push(word);
+            isFiltered = true;
         }
+        if (isFiltered)
+            ++filteredWords;
     }
+    $(".title-item.center .count").text(filteredWords);
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
     table.render(tags, wordsPerTag, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
