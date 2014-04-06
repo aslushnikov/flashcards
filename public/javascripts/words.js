@@ -42,6 +42,8 @@ $(document).ready(function() {
 
     var tagcloud = $(".tagcloud");
     tagcloud.hide();
+    var datePicker = $(".date-picker");
+    datePicker.hide();
     $(".title-item.right").hammer().on("tap", function(e) {
         startTraining();
     });
@@ -62,13 +64,16 @@ $(document).ready(function() {
     $(".sort-item.alphabetically").addClass("active");
     $(".sort-item.alphabetically").hammer().on("tap", function(e) {
         tagcloud.slideUp("fast");
+        datePicker.slideUp("fast");
         sortWordsNatural(table, bootstrapWords);
     });
     $(".sort-item.groupby-day").hammer().on("tap", function(e) {
         tagcloud.slideUp("fast");
+        datePicker.slideDown("fast");
         sortWordsByDate(table, bootstrapWords);
     });
     $(".sort-item.groupby-tag").hammer().on("tap", function(e) {
+        datePicker.slideUp("fast");
         tagcloud.slideDown("fast");
         var tags = activeTags();
         sortWordsByTag(table, bootstrapWords, tags);
@@ -81,6 +86,10 @@ $(document).ready(function() {
         $(e.target).toggleClass("active");
         var tags = activeTags();
         sortWordsByTag(table, bootstrapWords, tags);
+    });
+    $(".date-picker .option").hammer().on("tap", function(e) {
+        $(".date-picker .option.active").removeClass("active");
+        $(e.target).toggleClass("active");
     });
 })
 

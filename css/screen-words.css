@@ -29,6 +29,28 @@
     background-color: #EEE;
 }
 
+.date-picker {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-picker .option {
+    text-decoration: none;
+    flex: auto;
+    text-align: center;
+    border: 1px solid lightgray;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.date-picker .option.active {
+    background-color: blue;
+    color: white;
+}
+
 .entry {
     flex: auto;
     color: black;
