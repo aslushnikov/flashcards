@@ -18,6 +18,23 @@ function removeWord(wordId, callback)
     })
 }
 
+function activeTags()
+{
+    var tags = $(".tagcloud .tag.active").map(function(a, b) { return b.textContent; });
+    return tags.toArray();
+}
+
+function startTraining()
+{
+    var tagTrain = $(".sort-item.groupby-tag").hasClass("active");
+    var tags = tagTrain ? activeTags() : [];
+    var data = {
+        type: "original",
+        tags: tags
+    };
+    window.location = "/train/start?" + $.param(data);
+}
+
 $(document).ready(function() {
     initializeWords();
     var table = new LazyTable($(".dictionary"));
@@ -25,6 +42,9 @@ $(document).ready(function() {
 
     var tagcloud = $(".tagcloud");
     tagcloud.hide();
+    $(".title-item.right").hammer().on("tap", function(e) {
+        startTraining();
+    });
     $(".dictionary").hammer().on("hold", function(e) {
         var entry = $(e.target).closest(".entry");
         var word = entry.find(".original").text();
@@ -50,7 +70,7 @@ $(document).ready(function() {
     });
     $(".sort-item.groupby-tag").hammer().on("tap", function(e) {
         tagcloud.slideDown("fast");
-        var tags = $(".tagcloud .tag.active").map(function(a, b) { return b.textContent; });
+        var tags = activeTags();
         sortWordsByTag(table, bootstrapWords, tags);
     });
     $(".sort-item").hammer().on("tap", function(e) {
@@ -59,7 +79,7 @@ $(document).ready(function() {
     });
     $(".tagcloud .tag").hammer().on("tap", function(e) {
         $(e.target).toggleClass("active");
-        var tags = $(".tagcloud .tag.active").map(function(a, b) { return b.textContent; });
+        var tags = activeTags();
         sortWordsByTag(table, bootstrapWords, tags);
     });
 })
