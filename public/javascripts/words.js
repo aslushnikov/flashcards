@@ -1,3 +1,4 @@
+"use strict";
 function initializeWords()
 {
     for (var i = 0; i < bootstrapWords.length; ++i) {
@@ -187,7 +188,7 @@ LazyTable.prototype = {
     _appendAndRecreateIfNeeded: function(fragment, child)
     {
         fragment.appendChild(child);
-        if (fragment.children.length < LazyTable.DOMElementsPerChunk)
+        if (fragment.childNodes.length < LazyTable.DOMElementsPerChunk)
             return fragment;
         this._fragments.push(fragment);
         return document.createDocumentFragment();
@@ -209,7 +210,7 @@ LazyTable.prototype = {
                 fragment = this._appendAndRecreateIfNeeded(fragment, rowElement);
             }
         }
-        if (fragment.children.length > 0)
+        if (fragment.childNodes.length > 0)
             this._fragments.push(fragment);
 
         if (!this._fragments.length) {
