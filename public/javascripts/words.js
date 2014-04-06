@@ -118,9 +118,11 @@ function formatDate(date)
 
 function wordComparator(word1, word2)
 {
-    if (word1.original < word2.original)
+    var o1 = word1.original.toUpperCase();
+    var o2 = word2.original.toUpperCase();
+    if (o1 < o2)
         return -1;
-    if (word1.original > word2.original)
+    if (o1 > o2)
         return 1;
     return 0;
 }
