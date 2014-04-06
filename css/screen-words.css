@@ -51,14 +51,14 @@
     justify-content: space-between;
 }
 
-.original {
+.entry .original {
     flex-shrink: 0;
     flex-grow: 1;
     flex-basis: 30%;
     padding: 1ex 1ex 1ex 0;
 }
 
-.tags {
+.entry .tags {
     flex-shrink: 1;
     flex-grow: 1;
     font-size: 10pt;
@@ -68,7 +68,7 @@
     justify-content: center;
 }
 
-.translation {
+.entry .translation {
     flex-shrink: 0;
     flex-grow: 1;
     flex-basis: 30%;
@@ -76,7 +76,19 @@
     padding: 1ex 0 1ex 1ex;
 }
 
-.date {
+.dictionary-container .section {
     text-align: center;
     font-size: 12px;
+}
+
+.tagcloud {
+    justify-content: center;
+}
+
+.tag {
+    font-size: 14px;
+}
+
+.tag.active {
+    background-color: yellow;
 }

@@ -3,6 +3,7 @@ extends layout
 block head
   link(rel="stylesheet", href="/stylesheets/screen-words.css")
   link(rel="stylesheet", href="/stylesheets/title.css")
+  link(rel="stylesheet", href="/stylesheets/tagcloud.css")
   script(src="/bower_components/jquery-hammerjs/jquery.hammer-full.min.js")
   script(src="/javascripts/words.js", type="text/javascript")
 
@@ -11,7 +12,7 @@ block content
     .original
     .tags
     .translation
-  .date.template
+  .section.template
   .title
     a.title-item.left(href="/") Menu
     .title-item.right Words: #{words.length}
@@ -19,6 +20,9 @@ block content
     .sort-item.alphabetically natural
     .sort-item.groupby-day date
     .sort-item.groupby-tag tag
+  .tagcloud
+    for tag in tags
+      .tag #{tag}
   .dictionary
     .header
       div Original

@@ -35,27 +35,12 @@ fieldset.active-tags, fieldset.all-tags {
     flex: none;
 }
 
-.tagcloud {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 14pt;
-}
-
-.active-tags > .tagcloud {
+.active-tags .tagcloud {
     justify-content: start;
 }
 
-.all-tags > .tagcloud {
+.all-tags .tagcloud {
     justify-content: center;
-}
-
-.tag {
-    cursor: pointer;
-    user-select: none;
-    padding: 0.5ex;
-    border: 1px solid #c0c0c0;
-    margin: 0.5ex;
 }
 
 .new-tag-button {
