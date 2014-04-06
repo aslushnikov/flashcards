@@ -176,7 +176,14 @@ var LazyTable = function(dictionaryElement)
 LazyTable.DOMElementsPerChunk = 20;
 
 LazyTable.prototype = {
-    _onLoadMore: function()
+    _onLoadMore: function(event)
+    {
+        event.gesture.stopPropagation();
+        event.gesture.preventDefault();
+        this._showNextFrame();
+    },
+
+    _showNextFrame: function()
     {
         this._containerElement.append(this._fragments.shift());
         if (!this._fragments.length)
@@ -217,6 +224,6 @@ LazyTable.prototype = {
             this._loadMore.hide();
             return;
         }
-        this._onLoadMore();
+        this._showNextFrame();
     }
 };
