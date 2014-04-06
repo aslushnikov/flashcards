@@ -1,8 +1,3 @@
-var SortTypes = {
-    natural: "natural",
-    date: "date"
-};
-
 function initializeWords()
 {
     for (var i = 0; i < bootstrapWords.length; ++i) {
@@ -24,7 +19,8 @@ function removeWord(wordId, callback)
 
 $(document).ready(function() {
     initializeWords();
-    sortWordsNatural(bootstrapWords);
+    var table = new LazyTable($(".dictionary"));
+    sortWordsNatural(table, bootstrapWords);
 
     var tagcloud = $(".tagcloud");
     tagcloud.hide();
@@ -45,16 +41,16 @@ $(document).ready(function() {
     $(".sort-item.alphabetically").addClass("active");
     $(".sort-item.alphabetically").hammer().on("tap", function(e) {
         tagcloud.slideUp("fast");
-        sortWordsNatural(bootstrapWords);
+        sortWordsNatural(table, bootstrapWords);
     });
     $(".sort-item.groupby-day").hammer().on("tap", function(e) {
         tagcloud.slideUp("fast");
-        sortWordsByDate(bootstrapWords);
+        sortWordsByDate(table, bootstrapWords);
     });
     $(".sort-item.groupby-tag").hammer().on("tap", function(e) {
         tagcloud.slideDown("fast");
         var tags = $(".tagcloud .tag.active").map(function(a, b) { return b.textContent; });
-        sortWordsByTag(bootstrapWords, tags);
+        sortWordsByTag(table, bootstrapWords, tags);
     });
     $(".sort-item").hammer().on("tap", function(e) {
         $(".sort-item.active").removeClass("active");
@@ -63,11 +59,11 @@ $(document).ready(function() {
     $(".tagcloud .tag").hammer().on("tap", function(e) {
         $(e.target).toggleClass("active");
         var tags = $(".tagcloud .tag.active").map(function(a, b) { return b.textContent; });
-        sortWordsByTag(bootstrapWords, tags);
+        sortWordsByTag(table, bootstrapWords, tags);
     });
 })
 
-function renderWord(template, word)
+function renderRow(template, word)
 {
     function tagNames(tags)
     {
@@ -86,20 +82,20 @@ function renderWord(template, word)
     return entry.get(0);
 }
 
-function renderDate(template, date)
+function renderSection(template, sectionHeader)
 {
     var node = template.clone();
     node.removeClass("template");
-    node.text(date);
+    node.text(sectionHeader);
     return node.get(0);
 }
 
-function stringifyDate(date)
+function formatDate(date)
 {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 }
 
-function naturalSort(word1, word2)
+function wordComparator(word1, word2)
 {
     if (word1.original < word2.original)
         return -1;
@@ -108,25 +104,25 @@ function naturalSort(word1, word2)
     return 0;
 }
 
-function sortWordsNatural(words)
+function sortWordsNatural(table, words)
 {
     if (!words || !words.length)
         return;
     var rowTemplate = $(".entry.template");
-    words.sort(naturalSort);
-    renderTable(["all"], {
+    words.sort(wordComparator);
+    table.render(["all"], {
         "all": words,
-    }, renderWord.bind(null, rowTemplate));
+    }, renderRow.bind(null, rowTemplate));
 }
 
-function sortWordsByDate(words)
+function sortWordsByDate(table, words)
 {
     if (!words || !words.length)
         return;
     var wordsPerDate = {};
     var dates = [];
     for (var i = 0; i < words.length; ++i) {
-        var formattedDate = stringifyDate(words[i].creationDate);
+        var formattedDate = formatDate(words[i].creationDate);
         if (!wordsPerDate[formattedDate]) {
             wordsPerDate[formattedDate] = [];
             dates.push(words[i].creationDate);
@@ -135,19 +131,19 @@ function sortWordsByDate(words)
     }
     for (var formattedDate in wordsPerDate) {
         var words = wordsPerDate[formattedDate];
-        words.sort(naturalSort);
+        words.sort(wordComparator);
     }
     dates.sort(function(date1, date2) {
         return date2 - date1;
     });
-    dates = dates.map(stringifyDate);
+    dates = dates.map(formatDate);
 
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
-    renderTable(dates, wordsPerDate, renderWord.bind(null, rowTemplate), renderDate.bind(null, sectionTemplate));
+    table.render(dates, wordsPerDate, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
 }
 
-function sortWordsByTag(words, tags)
+function sortWordsByTag(table, words, tags)
 {
     tags.sort();
     var wordsPerTag = {};
@@ -164,22 +160,62 @@ function sortWordsByTag(words, tags)
     }
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
-    renderTable(tags, wordsPerTag, renderWord.bind(null, rowTemplate), renderDate.bind(null, sectionTemplate));
+    table.render(tags, wordsPerTag, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
 }
 
-function renderTable(sections, wordsPerSection, rowRenderer, sectionHeaderRenderer)
+var LazyTable = function(dictionaryElement)
 {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < sections.length; ++i) {
-        var section = sections[i];
-        var words = wordsPerSection[section];
-        var sectionElement = sectionHeaderRenderer ? sectionHeaderRenderer(section) : null;
-        if (sectionElement)
-            fragment.appendChild(sectionElement);
-        for (var j = 0; j < words.length; ++j) {
-            var rowElement = rowRenderer(words[j]);
-            fragment.appendChild(rowElement);
-        }
-    }
-    $(".dictionary-container").empty().append(fragment);
+    var dictionary = $(dictionaryElement);
+    this._containerElement = dictionary.find(".dictionary-container");
+    this._loadMore = dictionary.find(".load-next");
+    this._loadMore.hide();
+    this._loadMore.hammer().on("tap", this._onLoadMore.bind(this));
 }
+
+LazyTable.DOMElementsPerChunk = 5;
+
+LazyTable.prototype = {
+    _onLoadMore: function()
+    {
+        this._containerElement.append(this._fragments.shift());
+        if (!this._fragments.length)
+            this._loadMore.hide();
+        else
+            this._loadMore.show();
+    },
+
+    _appendAndRecreateIfNeeded: function(fragment, child)
+    {
+        fragment.appendChild(child);
+        if (fragment.children.length < LazyTable.DOMElementsPerChunk)
+            return fragment;
+        this._fragments.push(fragment);
+        return document.createDocumentFragment();
+    },
+
+    render: function(sections, wordsPerSection, rowRenderer, sectionHeaderRenderer)
+    {
+        this._containerElement.empty();
+        this._fragments = [];
+        var fragment = document.createDocumentFragment();
+        for (var i = 0; i < sections.length; ++i) {
+            var section = sections[i];
+            var words = wordsPerSection[section];
+            var sectionElement = sectionHeaderRenderer ? sectionHeaderRenderer(section) : null;
+            if (sectionElement)
+                fragment = this._appendAndRecreateIfNeeded(fragment, sectionElement);
+            for (var j = 0; j < words.length; ++j) {
+                var rowElement = rowRenderer(words[j]);
+                fragment = this._appendAndRecreateIfNeeded(fragment, rowElement);
+            }
+        }
+        if (fragment.children.length > 0)
+            this._fragments.push(fragment);
+
+        if (!this._fragments.length) {
+            this._loadMore.hide();
+            return;
+        }
+        this._onLoadMore();
+    }
+};
