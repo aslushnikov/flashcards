@@ -47,8 +47,7 @@
 }
 
 .date-picker .option.active {
-    background-color: blue;
-    color: white;
+    background-color: yellow;
 }
 
 .entry {
@@ -130,4 +129,5 @@
     color: white;
     height: 3em;
     border: 1px solid gray;
+    margin: 3px;
 }

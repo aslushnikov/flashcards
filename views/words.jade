@@ -23,8 +23,8 @@ block content
     .sort-item.groupby-day date
     .sort-item.groupby-tag tag
   .date-picker
-    .option.date-3days 3 days
-    .option.date-week Week
+    .option(data-days="1") Last day
+    .option(data-days="7") Week
   .tagcloud
     for tag in tags
       .tag #{tag}

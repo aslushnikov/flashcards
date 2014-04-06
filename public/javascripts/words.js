@@ -37,6 +37,19 @@ function startTraining()
     window.location = "/train/start?" + $.param(data);
 }
 
+function datePickerValue()
+{
+    var value = $(".date-picker .option.active").attr("data-days");
+    if (!value)
+        return null;
+
+    var date = new Date();
+    var daysBefore = parseInt(value, 10);
+    date.setDate(date.getDate() - daysBefore);
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+
 $(document).ready(function() {
     initializeWords();
     var table = new LazyTable($(".dictionary"));
@@ -72,7 +85,7 @@ $(document).ready(function() {
     $(".sort-item.groupby-day").hammer().on("tap", function(e) {
         tagcloud.slideUp("fast");
         datePicker.slideDown("fast");
-        sortWordsByDate(table, bootstrapWords);
+        sortWordsByDate(table, bootstrapWords, datePickerValue());
     });
     $(".sort-item.groupby-tag").hammer().on("tap", function(e) {
         datePicker.slideUp("fast");
@@ -83,6 +96,7 @@ $(document).ready(function() {
     $(".sort-item").hammer().on("tap", function(e) {
         $(".sort-item.active").removeClass("active");
         $(e.target).addClass("active");
+        e.gesture.preventDefault();
     });
     $(".tagcloud .tag").hammer().on("tap", function(e) {
         $(e.target).toggleClass("active");
@@ -90,8 +104,12 @@ $(document).ready(function() {
         sortWordsByTag(table, bootstrapWords, tags);
     });
     $(".date-picker .option").hammer().on("tap", function(e) {
+        var me = $(e.target);
+        var isActive = me.hasClass("active");
         $(".date-picker .option.active").removeClass("active");
-        $(e.target).toggleClass("active");
+        if (!isActive)
+            me.toggleClass("active");
+        sortWordsByDate(table, bootstrapWords, datePickerValue());
     });
 })
 
@@ -160,10 +178,15 @@ function sortWordsNatural(table, words)
     table.render(sections, wordsPerSection, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
 }
 
-function sortWordsByDate(table, words)
+function sortWordsByDate(table, words, maxAge)
 {
     if (!words || !words.length)
         return;
+    if (maxAge) {
+        words = words.filter(function(word) {
+            return word.creationDate >= maxAge;
+        });
+    }
     $(".title-item.center .count").text(words.length);
     var wordsPerDate = {};
     var dates = [];
