@@ -132,11 +132,21 @@ function sortWordsNatural(table, words)
     if (!words || !words.length)
         return;
     var rowTemplate = $(".entry.template");
+    var sectionTemplate = $(".section.template");
     words.sort(wordComparator);
     $(".title-item.center .count").text(words.length);
-    table.render(["all"], {
-        "all": words,
-    }, renderRow.bind(null, rowTemplate));
+    var sections = [];
+    var wordsPerSection = {};
+    for (var i = 0; i < words.length; ++i) {
+        var word = words[i];
+        var section = word.original.substr(0, 1);
+        if (!wordsPerSection[section]) {
+            wordsPerSection[section] = [];
+            sections.push(section);
+        }
+        wordsPerSection[section].push(word);
+    }
+    table.render(sections, wordsPerSection, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
 }
 
 function sortWordsByDate(table, words)
