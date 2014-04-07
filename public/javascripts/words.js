@@ -111,6 +111,7 @@ $(document).ready(function() {
             me.toggleClass("active");
         sortWordsByDate(table, bootstrapWords, datePickerValue());
     });
+    table.flush();
 })
 
 function renderRow(template, word)
@@ -247,31 +248,37 @@ var LazyTable = function(dictionaryElement)
     this._loadMore.hammer().on("tap", this._onLoadMore.bind(this));
 }
 
-LazyTable.DOMElementsPerChunk = 20;
+LazyTable.DOMElementsPerFirstChunk = 2;
+LazyTable.DOMElementsPerChunk = 1000;
 
 LazyTable.prototype = {
     _onLoadMore: function(event)
     {
         event.gesture.stopPropagation();
         event.gesture.preventDefault();
-        this._showNextFrame();
+        this._flushNext();
     },
 
-    _showNextFrame: function()
+    _flushNext: function()
     {
-        this._containerElement.append(this._fragments.shift());
         if (!this._fragments.length)
+            return false;
+        this._containerElement.append(this._fragments.shift());
+        if (!this._fragments.length) {
             this._loadMore.hide();
-        else
-            this._loadMore.show();
+            return false;
+        }
+        this._loadMore.show();
+        return true;
     },
 
     _appendAndRecreateIfNeeded: function(fragment, child)
     {
         fragment.appendChild(child);
-        if (fragment.childNodes.length < LazyTable.DOMElementsPerChunk)
+        if (fragment.childNodes.length < this._chunkSize)
             return fragment;
         this._fragments.push(fragment);
+        this._chunkSize = LazyTable.DOMElementsPerChunk;
         return document.createDocumentFragment();
     },
 
@@ -280,6 +287,7 @@ LazyTable.prototype = {
         this._containerElement.empty();
         this._fragments = [];
         var fragment = document.createDocumentFragment();
+        this._chunkSize = LazyTable.DOMElementsPerFirstChunk;
         for (var i = 0; i < sections.length; ++i) {
             var section = sections[i];
             var words = wordsPerSection[section];
@@ -288,6 +296,7 @@ LazyTable.prototype = {
                 fragment = this._appendAndRecreateIfNeeded(fragment, sectionElement);
             for (var j = 0; j < words.length; ++j) {
                 var rowElement = rowRenderer(words[j]);
+                rowElement.__data = words[j];
                 fragment = this._appendAndRecreateIfNeeded(fragment, rowElement);
             }
         }
@@ -298,6 +307,11 @@ LazyTable.prototype = {
             this._loadMore.hide();
             return;
         }
-        this._showNextFrame();
+        this._flushNext();
+    },
+
+    flush: function()
+    {
+        while (this._flushNext());
     }
 };
