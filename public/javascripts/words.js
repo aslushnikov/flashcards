@@ -31,7 +31,7 @@ function startTraining()
     var tagTrain = $(".sort-item.groupby-tag").hasClass("active");
     var tags = tagTrain ? activeTags() : [];
     var data = {
-        type: "original",
+        type: "translation",
         tags: tags
     };
     window.location = "/train/start?" + $.param(data);
