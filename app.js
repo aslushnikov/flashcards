@@ -25,6 +25,15 @@ function setUpServer(database)
     // all environments
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
+    app.use(function(req, res, next) {
+        var agent = req.headers['user-agent'].toUpperCase();
+        if (agent.indexOf("SAFARI") > -1 && agent.indexOf("CHROME") === -1 && agent.indexOf("OPR") === -1) {
+            res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.header('Pragma', 'no-cache');
+            res.header('Expires', 0);
+        }
+        next();
+    });
     app.set('view engine', 'jade');
     app.use(express.compress());
     app.use(express.favicon());
