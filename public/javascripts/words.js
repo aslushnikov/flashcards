@@ -265,7 +265,7 @@ var LazyTable = function(dictionaryElement)
     this._loadMore.hammer().on("tap", this._onLoadMore.bind(this));
 }
 
-LazyTable.DOMElementsPerFirstChunk = 2;
+LazyTable.DOMElementsPerFirstChunk = 10;
 LazyTable.DOMElementsPerChunk = 1000;
 
 LazyTable.prototype = {
