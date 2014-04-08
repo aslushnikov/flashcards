@@ -77,5 +77,6 @@ $(document).ready(function() {
         $(".text.question").text(currentWordQuestion());
         $(".text.answer").text("");
         $(".button.fail").removeClass("step2").text("First letter");
+        $(".word-count").text(words.length - currentWordIndex);
     }
 });

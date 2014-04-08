@@ -9,7 +9,8 @@ block head
 block content
   .title
     a.title-item.left(href="/") Menu
-    .title-item.right Words: #{words.length}
+    .title-item.right Words:
+      span.word-count #{words.length}
   .box.question
     fieldset
       legend Translation
