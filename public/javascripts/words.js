@@ -50,6 +50,23 @@ function datePickerValue()
     return date;
 }
 
+function setupInitialScroll(table)
+{
+    table.flush();
+    if (!window.location.href)
+        return;
+    var wordId = parseInt(window.location.hash.substring(1), 10);
+    if (typeof wordId !== "number")
+        return;
+    for (var i = 0; i < bootstrapWords.length; ++i) {
+        var word = bootstrapWords[i];
+        if (word.id === wordId) {
+            table.scrollTo(word);
+            return;
+        }
+    }
+}
+
 $(document).ready(function() {
     initializeWords();
     var table = new LazyTable($(".dictionary"));
@@ -111,7 +128,7 @@ $(document).ready(function() {
             me.toggleClass("active");
         sortWordsByDate(table, bootstrapWords, datePickerValue());
     });
-    table.flush();
+    setupInitialScroll(table);
 })
 
 function renderRow(template, word)
@@ -308,6 +325,18 @@ LazyTable.prototype = {
             return;
         }
         this._flushNext();
+    },
+
+    scrollTo: function(rowData)
+    {
+        var children = this._containerElement.children();
+        for (var i = 0; i < children.length; ++i) {
+            var entry = children[i];
+            if (entry.__data === rowData) {
+                entry.scrollIntoViewIfNeeded(true);
+                return;
+            }
+        }
     },
 
     flush: function()
