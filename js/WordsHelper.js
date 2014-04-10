@@ -61,8 +61,9 @@ Flash.WordsHelper = {
         var wordsPerTag = {};
         for (var i = 0; i < words.length; ++i) {
             var word = words[i];
-            for (var j = 0; j < word.tags().length; ++j) {
-                var tag = word.tags[j];
+            var tags = word.tags();
+            for (var j = 0; j < tags.length; ++j) {
+                var tag = tags[j];
                 if (!wordsPerTag[tag])
                     wordsPerTag[tag] = [];
                 wordsPerTag[tag].push(word);
@@ -73,7 +74,7 @@ Flash.WordsHelper = {
             w.sort(Flash.Word.compareOriginals);
         }
         return {
-            sections: Object.keys(wordsPerTag),
+            sections: Object.keys(wordsPerTag).sort(),
             words: wordsPerTag,
         };
     }
