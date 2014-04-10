@@ -6,7 +6,9 @@ Flash.Word = function(payload)
     this._translation = payload.translation;
     this._creationDate = new Date(payload.creationDate);
     this._id = payload.id;
-    this._tags = payload.tags;
+    this._tags = [];
+    for (var i = 0; i < payload.tags.length; ++i)
+        this._tags.push(payload.tags[i].name);
     //FIXME: this needs to be a real set
     this._tagsSet = {};
     for (var i = 0; i < this._tags.length; ++i) {

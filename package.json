@@ -23,9 +23,9 @@
     "request": "~2.33.0"
   },
   "devDependencies": {
-    "gulp": "^3.3.4",
+    "gulp": "~3.6.0",
     "gulp-nodemon": "~1.0.0",
-    "gulp-util": "~2.2.9",
+    "gulp-util": "~2.2.14",
     "mocha": "~1.17.0",
     "should": "~3.0.1"
   }

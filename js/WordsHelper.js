@@ -9,8 +9,6 @@ function formatDate(date)
 Flash.WordsHelper = {
     naturalSort: function(words)
     {
-        if (!words || !words.size())
-            return;
         words = words.toArray();
         words.sort(Flash.Word.compareOriginals);
         var sections = [];
@@ -32,9 +30,7 @@ Flash.WordsHelper = {
 
     dateSort: function(words)
     {
-        if (!words || !words.length)
-            return;
-        words = words.slice();
+        words = words.toArray();
         var wordsPerDate = {};
         var dates = [];
         for (var i = 0; i < words.length; ++i) {
@@ -54,32 +50,30 @@ Flash.WordsHelper = {
         });
         dates = dates.map(formatDate);
         return {
-            sections: sections,
+            sections: dates,
             words: wordsPerDate
         };
     },
 
     tagSort: function(words)
     {
-        tags.sort();
+        words = words.toArray();
         var wordsPerTag = {};
-        for (var i = 0; i < tags.length; ++i)
-            wordsPerTag[tags[i]] = [];
         for (var i = 0; i < words.length; ++i) {
             var word = words[i];
-            for (var j = 0; j < word.tags.length; ++j) {
-                var tag = word.tags[j].name;
+            for (var j = 0; j < word.tags().length; ++j) {
+                var tag = word.tags[j];
                 if (!wordsPerTag[tag])
-                    continue;
+                    wordsPerTag[tag] = [];
                 wordsPerTag[tag].push(word);
             }
         }
-        for (var i = 0; i < tags.length; ++i) {
-            var w = wordsPerTag[tags[i]];
+        for (var tag in wordsPerTag) {
+            var w = wordsPerTag[tag];
             w.sort(Flash.Word.compareOriginals);
         }
         return {
-            sections: tags,
+            sections: Object.keys(wordsPerTag),
             words: wordsPerTag,
         };
     }

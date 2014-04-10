@@ -16,7 +16,9 @@ Flash.Word = function(payload)
     this._translation = payload.translation;
     this._creationDate = new Date(payload.creationDate);
     this._id = payload.id;
-    this._tags = payload.tags;
+    this._tags = [];
+    for (var i = 0; i < payload.tags.length; ++i)
+        this._tags.push(payload.tags[i].name);
     //FIXME: this needs to be a real set
     this._tagsSet = {};
     for (var i = 0; i < this._tags.length; ++i) {
@@ -139,8 +141,6 @@ function formatDate(date)
 Flash.WordsHelper = {
     naturalSort: function(words)
     {
-        if (!words || !words.size())
-            return;
         words = words.toArray();
         words.sort(Flash.Word.compareOriginals);
         var sections = [];
@@ -162,9 +162,7 @@ Flash.WordsHelper = {
 
     dateSort: function(words)
     {
-        if (!words || !words.length)
-            return;
-        words = words.slice();
+        words = words.toArray();
         var wordsPerDate = {};
         var dates = [];
         for (var i = 0; i < words.length; ++i) {
@@ -184,32 +182,30 @@ Flash.WordsHelper = {
         });
         dates = dates.map(formatDate);
         return {
-            sections: sections,
+            sections: dates,
             words: wordsPerDate
         };
     },
 
     tagSort: function(words)
     {
-        tags.sort();
+        words = words.toArray();
         var wordsPerTag = {};
-        for (var i = 0; i < tags.length; ++i)
-            wordsPerTag[tags[i]] = [];
         for (var i = 0; i < words.length; ++i) {
             var word = words[i];
-            for (var j = 0; j < word.tags.length; ++j) {
-                var tag = word.tags[j].name;
+            for (var j = 0; j < word.tags().length; ++j) {
+                var tag = word.tags[j];
                 if (!wordsPerTag[tag])
-                    continue;
+                    wordsPerTag[tag] = [];
                 wordsPerTag[tag].push(word);
             }
         }
-        for (var i = 0; i < tags.length; ++i) {
-            var w = wordsPerTag[tags[i]];
+        for (var tag in wordsPerTag) {
+            var w = wordsPerTag[tag];
             w.sort(Flash.Word.compareOriginals);
         }
         return {
-            sections: tags,
+            sections: Object.keys(wordsPerTag),
             words: wordsPerTag,
         };
     }
@@ -423,7 +419,7 @@ $(document).ready(function() {
         $(".date-picker .option.active").removeClass("active");
         if (!isActive)
             me.toggleClass("active");
-        sortWordsByDate(table, bootstrapWords, datePickerValue());
+        sortWordsByDate(table, datePickerValue());
     });
     setupInitialScroll(table);
 })
@@ -439,11 +435,11 @@ function renderRow(template, word)
     }
     var entry = template.clone();
     entry.removeClass("template");
-    entry.attr("href", "/word/edit/" + word.id);
-    entry.attr("data-word-id", word.id);
-    entry.find(".original").text(word.original);
-    entry.find(".translation").text(word.translation);
-    entry.find(".tags").text(tagNames(word.tags).join(", "));
+    entry.attr("href", "/word/edit/" + word.id());
+    entry.attr("data-word-id", word.id());
+    entry.find(".original").text(word.original());
+    entry.find(".translation").text(word.translation());
+    entry.find(".tags").text(tagNames(word.tags()).join(", "));
     return entry.get(0);
 }
 
@@ -473,7 +469,7 @@ function sortWordsNatural(table)
 function sortWordsByDate(table, maxAge)
 {
     var words = Flash.words.newerThen(maxAge);
-    var sortResult = Flash.WordsHelper.naturalSort(words);
+    var sortResult = Flash.WordsHelper.dateSort(words);
     $(".title-item.center .count").text(words.length);
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
@@ -484,7 +480,7 @@ function sortWordsByTag(table, tags)
 {
     var words = Flash.words.withAnyTag(tags);
     var sortResult = Flash.WordsHelper.tagSort(words);
-    $(".title-item.center .count").text(filteredWords);
+    $(".title-item.center .count").text(words.size());
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
     table.render(sortResult.sections, sortResult.words, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
