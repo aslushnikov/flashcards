@@ -106,13 +106,23 @@ gulp.task("build/css/add-word", ["css-prefix"], function() {
     gulp.src([
         "build/css/normalize.css",
         "build/css/common.css",
+        "build/css/stub.css",
         "build/css/title.css",
         "build/css/new-word.css",
-        "build/css/stub.css",
         "build/css/tagcloud.css",
     ])
     .pipe(concat("add-word.css"))
     .pipe(gulp.dest("./public/stylesheets/"))
+});
+
+gulp.task("build/js/add-word", function() {
+    gulp.src([
+        "js/Flash.js",
+        "js/Stub.js",
+        "js/add-word.js",
+    ])
+    .pipe(concat("add-word.js"))
+    .pipe(gulp.dest('./public/javascripts'))
 });
 
 gulp.task("build/js/words", function() {
@@ -139,6 +149,7 @@ gulp.task("build/css", [
 
 gulp.task("build/js", [
     "build/js/words",
+    "build/js/add-word",
 ]);
 
 gulp.task("build", ["build/js", "build/css"]);
