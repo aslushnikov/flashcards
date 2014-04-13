@@ -1,3 +1,5 @@
+(function(Flash){
+
 $(document).ready(function() {
     $(".tag-setting.all-words").hammer().on("tap", function(e) {
         var checkbox = $(this).find("input[type='checkbox']");
@@ -41,3 +43,5 @@ function startTraining(e) {
     };
     window.location = "/train/start?" + $.param(data);
 }
+
+}(Flash));

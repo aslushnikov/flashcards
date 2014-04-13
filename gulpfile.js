@@ -148,6 +148,16 @@ gulp.task("build/js/train", function() {
     .pipe(gulp.dest('./public/javascripts'))
 });
 
+gulp.task("build/js/train-settings", function() {
+    gulp.src([
+        "js/Flash.js",
+        "js/Word.js",
+        "js/train-settings.js"
+    ])
+    .pipe(concat("train-settings.js"))
+    .pipe(gulp.dest('./public/javascripts'))
+});
+
 gulp.task("build/css", [
     "build/css/words",
     "build/css/login",
@@ -161,6 +171,7 @@ gulp.task("build/js", [
     "build/js/words",
     "build/js/add-word",
     "build/js/train",
+    "build/js/train-settings",
 ]);
 
 gulp.task("build", ["build/js", "build/css"]);
