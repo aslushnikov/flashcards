@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "normalize-css": "~3.0.0",
-    "jquery-hammerjs": "~1.0.5"
+    "jquery-hammerjs": "~1.0.5",
+    "jquery": "~2.1.0"
   }
 }

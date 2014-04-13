@@ -39,6 +39,14 @@ gulp.task("db/clear", function() {
     })
 });
 
+gulp.task("build/js/deps", function() {
+    gulp.src([
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/jquery-hammerjs/jquery.hammer-full.min.js",
+    ])
+    .pipe(gulp.dest("public/javascripts"))
+});
+
 gulp.task("css-prefix", function() {
     gulp.src("./css/*.css")
     .pipe(prefix("last 2 versions", "> 1%"))
@@ -168,6 +176,7 @@ gulp.task("build/css", [
 ]);
 
 gulp.task("build/js", [
+    "build/js/deps",
     "build/js/words",
     "build/js/add-word",
     "build/js/train",

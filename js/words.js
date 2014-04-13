@@ -121,20 +121,13 @@ $(document).ready(function() {
 
 function renderRow(template, word)
 {
-    function tagNames(tags)
-    {
-        var result = [];
-        for (var i = 0; i < tags.length; ++i)
-            result.push(tags[i].name);
-        return result;
-    }
     var entry = template.clone();
     entry.removeClass("template");
     entry.attr("href", "/word/edit/" + word.id());
     entry.attr("data-word-id", word.id());
     entry.find(".original").text(word.original());
     entry.find(".translation").text(word.translation());
-    entry.find(".tags").text(tagNames(word.tags()).join(", "));
+    entry.find(".tags").text(word.tags().join(", "));
     return entry.get(0);
 }
 
