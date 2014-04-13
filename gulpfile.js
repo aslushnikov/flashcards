@@ -48,6 +48,7 @@ gulp.task("css-prefix", function() {
 gulp.task("build/css/words", ["css-prefix"], function() {
     gulp.src([
         "build/css/normalize.css",
+        "build/css/stub.css",
         "build/css/common.css",
         "build/css/screen-words.css",
         "build/css/title.css",
@@ -117,6 +118,7 @@ gulp.task("build/css/add-word", ["css-prefix"], function() {
 gulp.task("build/js/words", function() {
     gulp.src([
         "js/Flash.js",
+        "js/Stub.js",
         "js/Word.js",
         "js/WordsHelper.js",
         "js/LazyTable.js",

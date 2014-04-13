@@ -8,6 +8,38 @@ $(document).ready(function() {
     delete window.bootstrapWords;
 });
 
+(function(Flash) {
+
+Flash.Stub = function(parentElement) {
+    this._dom = $("<div class='screen-stub'><div class='text'>...</div></div>");
+    $(parentElement).append(this._dom);
+}
+
+Flash.Stub.prototype = {
+    success: function()
+    {
+        this._dom.remove();
+    },
+
+    failure: function(text)
+    {
+        this._dom.find(".text").text(text);
+        this._dom.addClass("failure");
+        this._dom.hammer().on("tap", function() {
+            this._remove();
+        }.bind(this));
+    },
+
+    _remove: function()
+    {
+        this._dom.fadeOut("fast", function() {
+            this._dom.remove();
+        }.bind(this));
+    },
+}
+
+}(Flash));
+
 (function(Flash){
 
 Flash.Word = function(payload)
@@ -310,8 +342,10 @@ Flash.LazyTable.prototype = {
 
 function removeWord(wordId, callback)
 {
+    var stub = new Flash.Stub($(".content"));
     $.post("/word/remove/" + wordId)
     .done(function() {
+        stub.success();
         callback();
     })
     .fail(function(obj, err, errDescr) {

@@ -2,8 +2,10 @@
 
 function removeWord(wordId, callback)
 {
+    var stub = new Flash.Stub($(".content"));
     $.post("/word/remove/" + wordId)
     .done(function() {
+        stub.success();
         callback();
     })
     .fail(function(obj, err, errDescr) {
