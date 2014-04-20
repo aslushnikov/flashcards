@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
     var trainSettings = $.deparam(window.location.search.substr(1));
+    if (trainSettings.newerThen)
+        trainSettings.newerThen = new Date(trainSettings.newerThen);
 
     if (!Flash.words)
         return;
@@ -39,6 +41,8 @@ $(document).ready(function() {
     });
 
     var words = Flash.words;
+    if (trainSettings.newerThen)
+        words = words.newerThen(trainSettings.newerThen);
     if (trainSettings.tags)
         words = words.withAnyTag(trainSettings.tags);
 

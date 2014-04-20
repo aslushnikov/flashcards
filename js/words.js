@@ -21,12 +21,11 @@ function activeTags()
 
 function startTraining()
 {
-    var tagTrain = $(".sort-item.groupby-tag").hasClass("active");
-    var tags = tagTrain ? activeTags() : [];
-    var data = {
-        type: "translation",
-        tags: tags
-    };
+    var data = { translation: "translation" };
+    if ($(".sort-item.groupby-tag").hasClass("active"))
+        data.tags = activeTags();
+    if ($(".sort-item.groupby-day").hasClass("active"))
+        data.newerThen = datePickerValue();
     window.location = "/train/start?" + $.param(data);
 }
 
