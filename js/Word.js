@@ -82,7 +82,7 @@ Flash.WordCollection.parsePayload = function(payload)
 Flash.WordCollection.prototype = {
     wordWithId: function(id)
     {
-        for (var i = 0; i < this._words; ++i) {
+        for (var i = 0; i < this._words.length; ++i) {
             if (id === this._words[i].id())
                 return this._words[i];
         }

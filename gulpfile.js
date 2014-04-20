@@ -117,6 +117,7 @@ gulp.task("build/js/add-word", function() {
     gulp.src([
         "js/Flash.js",
         "js/Stub.js",
+        "js/Word.js",
         "js/add-word.js",
     ])
     .pipe(concat("add-word.js"))

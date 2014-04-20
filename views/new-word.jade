@@ -4,30 +4,22 @@ block head
   link(rel="stylesheet", href="/stylesheets/add-word.css")
   script(src="/javascripts/jquery.hammer-full.min.js")
   script(src="/javascripts/add-word.js")
-  meta(data-callback="#{callback}")
 
 block content
   .title
     a.title-item.left(href="/") Menu
-    if wordId
-      a.title-item.right(href="/word/edit/#{wordId}") Update
-    else
-      a.title-item.right(href="/word/new") Add
+    a.title-item.right Submit
   .form
     fieldset.entry.original
       legend Original
-      .input(contenteditable="true", autofocus) #{original}
+      .input(contenteditable="true", autofocus)
     fieldset.entry.translation
       legend Translation
-      .input(contenteditable="true") #{translation}
+      .input(contenteditable="true")
     fieldset.active-tags
       legend Active tags
       .tagcloud
         .new-tag-button New tag
-        each tag in activeTags
-          .tag #{tag}
     fieldset.all-tags
       legend All tags
       .tagcloud
-        each tag in allTags
-          .tag #{tag}
