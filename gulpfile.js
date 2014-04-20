@@ -113,37 +113,15 @@ gulp.task("build/css/add-word", ["css-prefix"], function() {
     .pipe(gulp.dest("./public/stylesheets/"))
 });
 
-gulp.task("build/js/add-word", function() {
-    gulp.src([
-        "js/Flash.js",
-        "js/Stub.js",
-        "js/Word.js",
-        "js/add-word.js",
-    ])
-    .pipe(concat("add-word.js"))
-    .pipe(gulp.dest('./public/javascripts'))
-});
-
-gulp.task("build/js/words", function() {
+gulp.task("build/js/lib", function() {
     gulp.src([
         "js/Flash.js",
         "js/Stub.js",
         "js/Word.js",
         "js/WordsHelper.js",
         "js/LazyTable.js",
-        "js/words.js"
     ])
-    .pipe(concat("words.js"))
-    .pipe(gulp.dest('./public/javascripts'))
-});
-
-gulp.task("build/js/train", function() {
-    gulp.src([
-        "js/Flash.js",
-        "js/Word.js",
-        "js/train.js"
-    ])
-    .pipe(concat("train.js"))
+    .pipe(concat("lib.js"))
     .pipe(gulp.dest('./public/javascripts'))
 });
 
@@ -157,10 +135,15 @@ gulp.task("build/css", [
 
 gulp.task("build/js", [
     "build/js/deps",
-    "build/js/words",
-    "build/js/add-word",
-    "build/js/train",
-]);
+    "build/js/lib",
+], function() {
+    gulp.src([
+        "js/add-word.js",
+        "js/words.js",
+        "js/train.js",
+    ])
+    .pipe(gulp.dest("./public/javascripts"))
+});
 
 gulp.task("build", ["build/js", "build/css"]);
 
