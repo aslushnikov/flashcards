@@ -2,7 +2,8 @@ extends layout
 
 block head
   link(rel="stylesheet", href="/stylesheets/train.css")
-  script(src="/bower_components/jquery-hammerjs/jquery.hammer-full.min.js")
+  script(type="text/javascript", src="/javascripts/jquery.hammer-full.min.js")
+  script(type="text/javascript", src="/javascripts/jquery-deparam.min.js")
   script(type="text/javascript", src="/javascripts/train.js")
 
 block content
@@ -21,5 +22,3 @@ block content
   .buttons
     .button.fail.first-letter First letter
     .button.next Next
-  script window.bootstrapWords = !{JSON.stringify(words)};
-  script window.questionType = "#{questionType}";

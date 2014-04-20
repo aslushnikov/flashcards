@@ -114,6 +114,18 @@ Flash.WordCollection.prototype = {
         });
         return new Flash.WordCollection(filteredWords);
     },
+
+    uniqueTags: function()
+    {
+        var tagSet = {};
+        for (var i = 0; i < this._words.length; ++i) {
+            var tags = this._words[i].tags();
+            for (var j = 0; j < tags.length; ++j) {
+                tagSet[tags[j]] = true;
+            }
+        }
+        return Object.keys(tagSet);
+    },
 }
 
 }(Flash));

@@ -10,3 +10,5 @@ html
   body.fill
     .content
       block content
+    if words
+      script window.bootstrapWords = !{JSON.stringify(words)};

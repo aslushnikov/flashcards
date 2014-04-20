@@ -42,6 +42,7 @@ gulp.task("db/clear", function() {
 gulp.task("build/js/deps", function() {
     gulp.src([
         "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/jquery-bbq-deparam/jquery-deparam.min.js",
         "bower_components/jquery-hammerjs/jquery.hammer-full.min.js",
     ])
     .pipe(gulp.dest("public/javascripts"))
@@ -73,17 +74,6 @@ gulp.task("build/css/login", ["css-prefix"], function() {
         "build/css/login.css",
     ])
     .pipe(concat("login.css"))
-    .pipe(gulp.dest("./public/stylesheets/"))
-});
-
-gulp.task("build/css/train-settings", ["css-prefix"], function() {
-    gulp.src([
-        "build/css/normalize.css",
-        "build/css/common.css",
-        "build/css/title.css",
-        "build/css/train-settings.css",
-    ])
-    .pipe(concat("train-settings.css"))
     .pipe(gulp.dest("./public/stylesheets/"))
 });
 
@@ -156,22 +146,11 @@ gulp.task("build/js/train", function() {
     .pipe(gulp.dest('./public/javascripts'))
 });
 
-gulp.task("build/js/train-settings", function() {
-    gulp.src([
-        "js/Flash.js",
-        "js/Word.js",
-        "js/train-settings.js"
-    ])
-    .pipe(concat("train-settings.js"))
-    .pipe(gulp.dest('./public/javascripts'))
-});
-
 gulp.task("build/css", [
     "build/css/words",
     "build/css/login",
     "build/css/menu",
     "build/css/add-word",
-    "build/css/train-settings",
     "build/css/train",
 ]);
 
@@ -180,7 +159,6 @@ gulp.task("build/js", [
     "build/js/words",
     "build/js/add-word",
     "build/js/train",
-    "build/js/train-settings",
 ]);
 
 gulp.task("build", ["build/js", "build/css"]);

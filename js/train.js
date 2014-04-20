@@ -1,9 +1,11 @@
 (function(Flash){
 
 $(document).ready(function() {
+    var trainSettings = $.deparam(window.location.search.substr(1));
+
     if (!Flash.words)
         return;
-    if (window.questionType === "original") {
+    if (trainSettings.type === "original") {
         $(".box.question legend").text("Original");
         $(".box.answer legend").text("Translation");
     } else {
@@ -36,7 +38,11 @@ $(document).ready(function() {
             revealAnswer();
     });
 
-    var words = Flash.words.toArray();
+    var words = Flash.words;
+    if (trainSettings.tags)
+        words = words.withAnyTag(trainSettings.tags);
+
+    var words = words.toArray();
     var currentWordIndex = -1;
     shuffle(words);
     roll();
@@ -59,11 +65,11 @@ $(document).ready(function() {
     }
 
     function currentWordQuestion() {
-        return window.questionType === "original" ? words[currentWordIndex].original(): words[currentWordIndex].translation();
+        return trainSettings.type === "original" ? words[currentWordIndex].original(): words[currentWordIndex].translation();
     }
 
     function currentWordAnswer() {
-        return window.questionType === "original" ? words[currentWordIndex].translation() : words[currentWordIndex].original();
+        return trainSettings.type === "original" ? words[currentWordIndex].translation() : words[currentWordIndex].original();
     }
 
     function nextWord() {

@@ -50,7 +50,6 @@ function setUpServer(database)
     }));
     // setting up authentication middleware
     app.use(express.static(path.join(__dirname, 'public')));
-    app.use("/bower_components", express.static(path.join(__dirname, 'bower_components')));
     require("./lib/auth")(app, actions, config);
     app.use(app.router);
 
