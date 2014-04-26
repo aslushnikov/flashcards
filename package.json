@@ -7,7 +7,6 @@
     "test": "mocha tests/"
   },
   "dependencies": {
-    "bcrypt": "~0.7.7",
     "connect-sse": "~1.0.5",
     "express": "3.2.5",
     "gulp-autoprefixer": "0.0.6",
