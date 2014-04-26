@@ -40,15 +40,28 @@ fieldset.active-tags, fieldset.all-tags {
     justify-content: start;
 }
 
+.active-tags .tagcloud {
+    display: block;
+}
+
+.active-tags .tagcloud .tag {
+    display: inline-block;
+}
+
 .all-tags .tagcloud {
     justify-content: center;
 }
 
 .new-tag-button {
+    float: right;
+    display: flex-inline;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 1.5em;
+    height: 1.5em;
     cursor: pointer;
     user-select: none;
-    text-align: center;
-    padding: 0.5ex;
     border: 1px solid #c0c0c0;
     margin: 0.5ex;
     background-color: #EEE;

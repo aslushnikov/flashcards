@@ -116,10 +116,12 @@ gulp.task("build/css/add-word", ["css-prefix"], function() {
 gulp.task("build/js/lib", function() {
     gulp.src([
         "js/Flash.js",
+        "js/EventEmitter.js",
         "js/Stub.js",
         "js/Word.js",
         "js/WordsHelper.js",
         "js/LazyTable.js",
+        "js/TagCloud.js",
     ])
     .pipe(concat("lib.js"))
     .pipe(gulp.dest('./public/javascripts'))
