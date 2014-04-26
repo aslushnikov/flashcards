@@ -164,7 +164,7 @@ function sortWordsNatural(table)
     var sortResult = Flash.WordsHelper.naturalSort(words);
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
-    $(".title-item.center .count").text(words.size());
+    $(".title-item .count").text(words.size());
     table.render(sortResult.sections, sortResult.words, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
 }
 
@@ -172,7 +172,7 @@ function sortWordsByDate(table, maxAge)
 {
     var words = Flash.words.newerThen(maxAge);
     var sortResult = Flash.WordsHelper.dateSort(words);
-    $(".title-item.center .count").text(words.size());
+    $(".title-item .count").text(words.size());
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
     table.render(sortResult.sections, sortResult.words, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
@@ -182,7 +182,7 @@ function sortWordsByTag(table, tags)
 {
     var words = Flash.words.withAnyTag(tags);
     var sortResult = Flash.WordsHelper.tagSort(words);
-    $(".title-item.center .count").text(words.size());
+    $(".title-item .count").text(words.size());
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
     table.render(sortResult.sections, sortResult.words, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
