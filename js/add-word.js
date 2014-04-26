@@ -48,11 +48,13 @@ $(document).ready(function() {
     $(".active-tags").append(activeTagCloud.element);
     var allTagCloud = new Flash.TagCloud();
     $(".all-tags").append(allTagCloud.element);
-    activeTagCloud.on(Flash.TagCloud.Events.TagClicked, function(event, tag) {
+    activeTagCloud.on(Flash.TagCloud.Events.TagClicked, function(event, data) {
+        var tag = data.tag;
         activeTagCloud.removeTag(tag);
         allTagCloud.addTag(tag);
     });
-    allTagCloud.on(Flash.TagCloud.Events.TagClicked, function(event, tag) {
+    allTagCloud.on(Flash.TagCloud.Events.TagClicked, function(event, data) {
+        var tag = data.tag;
         allTagCloud.removeTag(tag);
         activeTagCloud.addTag(tag);
     });

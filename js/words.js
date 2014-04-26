@@ -1,5 +1,7 @@
 (function(Flash){
 
+var tagCloud = null;
+
 function removeWord(wordId, callback)
 {
     var stub = new Flash.Stub($(".content"));
@@ -13,10 +15,18 @@ function removeWord(wordId, callback)
     })
 }
 
+var tagState = {};
 function activeTags()
 {
-    var tags = $(".tagcloud .tag.active").map(function(a, b) { return b.textContent; });
-    return tags.toArray();
+    return Object.keys(tagState);
+}
+
+function toggleTagState(tag)
+{
+    if (tagState[tag])
+        delete tagState[tag];
+    else
+        tagState[tag] = true;
 }
 
 function startTraining()
@@ -59,8 +69,12 @@ $(document).ready(function() {
     var table = new Flash.LazyTable($(".dictionary"));
     sortWordsNatural(table);
 
-    var tagcloud = $(".tagcloud");
-    tagcloud.hide();
+    tagCloud = new Flash.TagCloud();
+    var uniqueTags = Flash.words.uniqueTags();
+    for (var i = 0; i < uniqueTags.length; ++i)
+        tagCloud.addTag(uniqueTags[i]);
+    $(".tagcloud-container").append(tagCloud.element);
+    tagCloud.element.hide();
     var datePicker = $(".date-picker");
     datePicker.hide();
     $(".title-item.right").hammer().on("tap", function(e) {
@@ -82,18 +96,18 @@ $(document).ready(function() {
     });
     $(".sort-item.alphabetically").addClass("active");
     $(".sort-item.alphabetically").hammer().on("tap", function(e) {
-        tagcloud.slideUp("fast");
+        tagCloud.element.slideUp("fast");
         datePicker.slideUp("fast");
         sortWordsNatural(table);
     });
     $(".sort-item.groupby-day").hammer().on("tap", function(e) {
-        tagcloud.slideUp("fast");
+        tagCloud.element.slideUp("fast");
         datePicker.slideDown("fast");
         sortWordsByDate(table, datePickerValue());
     });
     $(".sort-item.groupby-tag").hammer().on("tap", function(e) {
         datePicker.slideUp("fast");
-        tagcloud.slideDown("fast");
+        tagCloud.element.slideDown("fast");
         var tags = activeTags();
         sortWordsByTag(table, tags);
     });
@@ -102,8 +116,9 @@ $(document).ready(function() {
         $(e.target).addClass("active");
         e.gesture.preventDefault();
     });
-    $(".tagcloud .tag").hammer().on("tap", function(e) {
-        $(e.target).toggleClass("active");
+    tagCloud.on(Flash.TagCloud.Events.TagClicked, function(event, data) {
+        $(data.element).toggleClass("active");
+        toggleTagState(data.tag);
         var tags = activeTags();
         sortWordsByTag(table, tags);
     });
