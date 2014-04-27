@@ -80,12 +80,6 @@ describe("Action", function() {
             .then(function(user) {
                 user.firstName.should.be.equal(testUser1.firstName);
                 user.lastName.should.be.equal(testUser1.lastName);
-                // do not store raw password
-                user.password.should.not.be.equal(testUser1.password);
-                return user.verifyPassword(testUser1.password, user.password);
-            })
-            .then(function(isEqual) {
-                isEqual.should.be.true;
             })
             .then(done)
             .fail(done)
@@ -219,9 +213,7 @@ describe("Action", function() {
             })
             .then(function(wordUser) {
                 wordUser.id.should.be.equal(user.id);
-                return word.fetchTags();
-            })
-            .then(function(tags) {
+                var tags = word.tagNames();
                 tags.should.have.length(2);
                 tags.should.containEql(testWordWithTags.tags[0]);
                 tags.should.containEql(testWordWithTags.tags[1]);
@@ -236,35 +228,6 @@ describe("Action", function() {
             .fail(done);
         });
     }); // Actions.createNewWord
-
-    /**
-     * Actions.ensureTagsForUser
-     */
-    describe("ensureTagsForUser", function() {
-        it("should ensure tags for user", function(done) {
-            var user;
-            actions.createNewUser(testUser1)
-            .then(function(_user) {
-                user = _user;
-                return actions.ensureTagsForUser(user, ["tag", " tag", "tag ", " tag  ", "  bag"])
-            })
-            .then(function(tags) {
-                tags.should.have.length(2);
-                var names = tags.map(function(value) { return value.name; });
-                names.should.containEql("tag");
-                names.should.containEql("bag");
-                return Q.denodeify(user.getTags.bind(user))();
-            })
-            .then(function(tags) {
-                tags.should.have.length(2);
-                var names = tags.map(function(value) { return value.name; });
-                names.should.containEql("tag");
-                names.should.containEql("bag");
-                done();
-            })
-            .fail(done);
-        });
-    }); // Actions.ensureTagsForUser
 
     /**
      * Actions.removeWord
