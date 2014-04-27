@@ -89,16 +89,15 @@ gulp.task("build/css/train", ["css-prefix"], function() {
 });
 
 
-gulp.task("build/css/menu", ["css-prefix"], function() {
+gulp.task("build/css/settings", ["css-prefix"], function() {
     gulp.src([
         "build/css/normalize.css",
         "build/css/common.css",
         "build/css/title.css",
         "build/css/stub.css",
-        "build/css/menu.css",
-        "build/css/screen-menu.css",
+        "build/css/screen-settings.css",
     ])
-    .pipe(concat("menu.css"))
+    .pipe(concat("settings.css"))
     .pipe(gulp.dest("./public/stylesheets/"))
 });
 
@@ -132,7 +131,7 @@ gulp.task("build/js/lib", function() {
 gulp.task("build/css", [
     "build/css/words",
     "build/css/login",
-    "build/css/menu",
+    "build/css/settings",
     "build/css/add-word",
     "build/css/train",
 ]);
