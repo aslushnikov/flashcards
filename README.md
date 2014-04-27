@@ -1,4 +1,4 @@
-# Flashcards, simple, minimalistic & opionated.
+# Flashcards, made simple
 
 ## Motivation
 
@@ -10,16 +10,14 @@ I spend oh-so-many-time trying to find a flashcards *service* that would fit my 
 - export & import functionality so that I won't be tied to it forever
 - works offline in training mode on my iphone
 
-I didn't find one. The project is my highly-opionated implementation of these
-principals.
+I didn't find one. The project is my highly-opionated implementation of a flashcards service that sticks to these principals.
 
 ## Status
 
 App works nicely on iOS7, Android4.4 and modern desktop browsers.
 
-The following is implemented:
+All the necessary functionality is implemented, in particular:
 - basic functionality to add, remove, edit & tag words
 - import & export
 - train different subsets of words (by tags, by date); works offline as far as you load training
-
 
