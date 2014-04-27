@@ -131,4 +131,5 @@
     height: 3em;
     border: 1px solid gray;
     margin: 3px;
+    cursor: pointer;
 }

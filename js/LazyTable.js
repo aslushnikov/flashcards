@@ -9,7 +9,7 @@ Flash.LazyTable = function(dictionaryElement)
     this._loadMore.hammer().on("tap", this._onLoadMore.bind(this));
 }
 
-Flash.LazyTable.DOMElementsPerFirstChunk = 10;
+Flash.LazyTable.DOMElementsPerFirstChunk = 25;
 Flash.LazyTable.DOMElementsPerChunk = 1000;
 
 Flash.LazyTable.prototype = {
