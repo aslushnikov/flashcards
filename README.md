@@ -19,5 +19,4 @@ App works nicely on iOS7, Android4.4 and modern desktop browsers.
 All the necessary functionality is implemented, in particular:
 - basic functionality to add, remove, edit & tag words
 - import & export
-- train different subsets of words (by tags, by date); works offline as far as you load training
-
+- train different subsets of words (by tags, by date); works offline as far as you preload training page
