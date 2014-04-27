@@ -18,3 +18,6 @@ module.exports = {
         inactiveUserDropTimeout: 1000 * 60 * 60, // 1 hour
     }
 };
+
+if (process.env.VERSION)
+    module.exports.version = process.env.VERSION.substr(0, 9);

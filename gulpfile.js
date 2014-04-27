@@ -157,7 +157,18 @@ gulp.task("watch", function() {
     gulp.watch("js/*.js", ["build/js"]);
 });
 
+function gitHEAD(path, callback)
+{
+    var exec = require('child_process').exec
+    exec('git rev-parse --short HEAD', {cwd: path}, function(error, stdout, stderr) {
+        if (error) return callback(error, stderr.trim());
+        callback(null, stdout.trim());
+    });
+}
+
 gulp.task("default", ["build", "watch"], function() {
-    nodemon({ script: 'app.js', ext: 'html js', ignore: ['public/', 'js/', 'css/'] })
-    .on('restart', [])
+    gitHEAD(".", function(err, sha) {
+        nodemon({ env: {"VERSION": sha }, script: 'app.js', ext: 'html js', ignore: ['public/', 'js/', 'css/'] })
+        .on('restart', [])
+    });
 });

@@ -7,12 +7,12 @@ block head
 block content
   .title
     a.title-item.left(href="/words") Words
-    .title-item.right Version:
-      span.version Unavailable
   .menu
       input#file-selector(type="file")
       a.import-link Import
       a(href="/export") Export
       a.clear-words-link Clear words
       a(href="/logout") Logout #{user.email}
+  if version
+    a#version(href="http://github.com/aslushnikov/flashcards/commit/#{version}") SHA: #{version}
 
