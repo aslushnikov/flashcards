@@ -93,6 +93,7 @@ gulp.task("build/css/menu", ["css-prefix"], function() {
     gulp.src([
         "build/css/normalize.css",
         "build/css/common.css",
+        "build/css/title.css",
         "build/css/menu.css",
         "build/css/screen-menu.css",
     ])
