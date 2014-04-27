@@ -144,6 +144,7 @@ gulp.task("build/js", [
         "js/add-word.js",
         "js/words.js",
         "js/train.js",
+        "js/settings.js",
     ])
     .pipe(gulp.dest("./public/javascripts"))
 });

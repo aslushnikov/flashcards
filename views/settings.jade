@@ -2,6 +2,7 @@ extends layout
 
 block head
   link(rel="stylesheet", href="/stylesheets/menu.css")
+  script(src="/javascripts/settings.js", type="text/javascript")
 
 block content
   .title
@@ -9,7 +10,8 @@ block content
     .title-item.right Version:
       span.version Unavailable
   .menu
-      a(href="/import") Import
+      input#file-selector(type="file")
+      a.import-link Import
       a(href="/export") Export
       a(href="/logout") Logout #{user.email}
 
