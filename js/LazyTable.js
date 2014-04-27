@@ -7,12 +7,30 @@ Flash.LazyTable = function(dictionaryElement)
     this._loadMore = dictionary.find(".load-next");
     this._loadMore.hide();
     this._loadMore.hammer().on("tap", this._onLoadMore.bind(this));
+    $(document).scroll(this._onScroll.bind(this));
 }
 
 Flash.LazyTable.DOMElementsPerFirstChunk = 25;
 Flash.LazyTable.DOMElementsPerChunk = 1000;
 
 Flash.LazyTable.prototype = {
+    _isScrolledIntoView: function(elem)
+    {
+        var docViewTop = $(document).scrollTop();
+        var docViewBottom = docViewTop + $(document).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return docViewTop <= elemTop && elemTop <= docViewBottom;
+    },
+
+    _onScroll: function()
+    {
+        if (this._loadMore.is(":visible") && this._isScrolledIntoView(this._loadMore))
+            this._flushNext();
+    },
+
     _onLoadMore: function(event)
     {
         event.gesture.stopPropagation();
