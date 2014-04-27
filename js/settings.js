@@ -50,7 +50,7 @@ function onFileSelected()
         })
         console.log(submit);
     }
-    reader.readAsBinaryString(file);
+    reader.readAsDataURL(file);
 }
 
 })(Flash);
