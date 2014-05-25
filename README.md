@@ -1,5 +1,10 @@
 # Flashcards, made simple
 
+![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2Q1NKQ2xQWkkwVm8/edit?usp=sharing)
+![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2UDFLWGNkQm5OM3M/edit?usp=sharing)
+![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2UTQzN2hzdUhFY28/edit?usp=sharing)
+![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2ZFltNHNMRDdPa2s/edit?usp=sharing)
+
 ## Motivation
 
 I spend oh-so-many-time trying to find a flashcards *service* that would fit my needs:
