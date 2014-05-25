@@ -1,9 +1,9 @@
 # Flashcards, made simple
 
-![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2Q1NKQ2xQWkkwVm8/edit?usp=sharing)
-![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2UDFLWGNkQm5OM3M/edit?usp=sharing)
-![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2UTQzN2hzdUhFY28/edit?usp=sharing)
-![Screenshot 1](https://drive.google.com/file/d/0BxLqMhsA-hv2ZFltNHNMRDdPa2s/edit?usp=sharing)
+![Screenshot 1](https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2027%2042.png)
+![Screenshot 1](https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2028%2006.png)
+![Screenshot 1](https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2030%2035.png)
+![Screenshot 1](https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2032%2055.png)
 
 ## Motivation
 
