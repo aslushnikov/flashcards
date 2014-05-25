@@ -32,7 +32,7 @@ function submitWord(activeTagCloud) {
         return;
     }
     var stub = new Flash.Stub($(".content"));
-    $.post(url, wordData)
+    $.post(url, data)
     .done(function() {
         if (editedWord) {
             window.location = "/words#" + editedWord.id();
