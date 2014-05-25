@@ -227,6 +227,38 @@ describe("Action", function() {
             })
             .fail(done);
         });
+        it("should not create word if original is missing", function(done) {
+            var user, word;
+            actions.createNewUser(testUser1)
+            .then(function(_user) {
+                user = _user;
+                return actions.createNewWord(user, {
+                    translation: "bitch",
+                });
+            })
+            .then(function(_word) {
+                done(new Error("The word was created - wrong!"));
+            })
+            .fail(function(err) {
+                done();
+            })
+        });
+        it("should not create word if translation is missing", function(done) {
+            var user, word;
+            actions.createNewUser(testUser1)
+            .then(function(_user) {
+                user = _user;
+                return actions.createNewWord(user, {
+                    original: "hablar",
+                });
+            })
+            .then(function(_word) {
+                done(new Error("The word was created - wrong!"));
+            })
+            .fail(function(err) {
+                done();
+            })
+        });
     }); // Actions.createNewWord
 
     /**
