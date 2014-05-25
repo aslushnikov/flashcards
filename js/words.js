@@ -67,7 +67,11 @@ function setupInitialScroll(table)
 
 $(document).ready(function() {
     var table = new Flash.LazyTable($(".dictionary"));
-    sortWordsNatural(table);
+    filterWordsNatural(table);
+
+    $(".filter input").on("input", function(e) {
+        filterWordsNatural(table);
+    });
 
     tagCloud = new Flash.TagCloud();
     var uniqueTags = Flash.words.uniqueTags();
@@ -98,15 +102,18 @@ $(document).ready(function() {
     $(".sort-item.alphabetically").hammer().on("tap", function(e) {
         tagCloud.element.slideUp("fast");
         datePicker.slideUp("fast");
-        sortWordsNatural(table);
+        $(".filter").slideDown("fast");
+        filterWordsNatural(table);
     });
     $(".sort-item.groupby-day").hammer().on("tap", function(e) {
         tagCloud.element.slideUp("fast");
+        $(".filter").slideUp("fast");
         datePicker.slideDown("fast");
         sortWordsByDate(table, datePickerValue());
     });
     $(".sort-item.groupby-tag").hammer().on("tap", function(e) {
         datePicker.slideUp("fast");
+        $(".filter").slideUp("fast");
         tagCloud.element.slideDown("fast");
         var tags = activeTags();
         sortWordsByTag(table, tags);
@@ -145,6 +152,33 @@ function renderRow(template, word)
     return entry.get(0);
 }
 
+function createHTMLWithHighlightedMatches(text, matchIndexes)
+{
+    var html = "";
+    var lastIndex = -1;
+    for (var i = 0; i < matchIndexes.length; ++i) {
+        html += text.substring(lastIndex + 1, matchIndexes[i]);
+        html += "<span class='text-match'>" + text[matchIndexes[i]] + "</span>";
+        lastIndex = matchIndexes[i];
+    }
+    html += text.substring(lastIndex + 1);
+    return html;
+}
+
+function renderRowWithMatch(template, matchFunction, word)
+{
+    var originalIndexes = matchFunction(word.original());
+    var translationIndexes = matchFunction(word.translation());
+    var entry = template.clone();
+    entry.removeClass("template");
+    entry.attr("href", "/word/edit/" + word.id());
+    entry.attr("data-word-id", word.id());
+    entry.find(".original").html(createHTMLWithHighlightedMatches(word.original(), originalIndexes));
+    entry.find(".translation").html(createHTMLWithHighlightedMatches(word.translation(), translationIndexes));
+    entry.find(".tags").text(word.tags().join(", "));
+    return entry.get(0);
+}
+
 function renderSection(template, sectionHeader)
 {
     var node = template.clone();
@@ -158,14 +192,33 @@ function formatDate(date)
     return MONTHS_SHORT[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 }
 
-function sortWordsNatural(table)
+function matchFunction(filterValue, text)
+{
+    if (!filterValue)
+        return [];
+    var index = text.toUpperCase().indexOf(filterValue.toUpperCase());
+    if (index === -1)
+        return [];
+    var result = [];
+    for (var i = 0; i < filterValue.length; ++i)
+        result.push(index + i);
+    return result;
+}
+
+function filterWordsNatural(table)
 {
     var words = Flash.words;
+    var filterValue = $(".filter input").val();
+    if (filterValue) {
+        words = Flash.words.filter(function(word) {
+            return matchFunction(filterValue, word.original()).length || matchFunction(filterValue, word.translation()).length;
+        });
+    }
     var sortResult = Flash.WordsHelper.naturalSort(words);
     var rowTemplate = $(".entry.template");
     var sectionTemplate = $(".section.template");
     $(".title-item .count").text(words.size());
-    table.render(sortResult.sections, sortResult.words, renderRow.bind(null, rowTemplate), renderSection.bind(null, sectionTemplate));
+    table.render(sortResult.sections, sortResult.words, renderRowWithMatch.bind(null, rowTemplate, matchFunction.bind(null, filterValue)), renderSection.bind(null, sectionTemplate));
 }
 
 function sortWordsByDate(table, maxAge)

@@ -107,6 +107,12 @@ Flash.WordCollection.prototype = {
         return new Flash.WordCollection(filteredWords);
     },
 
+    filter: function(filterFunction)
+    {
+        var filteredWords = this._words.filter(filterFunction);
+        return new Flash.WordCollection(filteredWords);
+    },
+
     withAnyTag: function(tags)
     {
         var filteredWords = this._words.filter(function(word) {
