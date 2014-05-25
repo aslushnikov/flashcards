@@ -13,11 +13,26 @@ function wordData(activeTagCloud) {
     };
 }
 
+function highlightField(fieldName)
+{
+    var field = $(fieldName);
+    field.addClass("error");
+}
+
 function submitWord(activeTagCloud) {
-    var stub = new Flash.Stub($(".content"));
     var editedWord = getEditedWord();
     var url = editedWord ? "/word/edit/" + editedWord.id() : "/word/new";
-    $.post(url, wordData(activeTagCloud))
+    var data = wordData(activeTagCloud);
+    if (!data.original.trim()) {
+        highlightField(".entry.original");
+        return;
+    }
+    if (!data.translation.trim()) {
+        highlightField(".entry.translation");
+        return;
+    }
+    var stub = new Flash.Stub($(".content"));
+    $.post(url, wordData)
     .done(function() {
         if (editedWord) {
             window.location = "/words#" + editedWord.id();
@@ -81,6 +96,11 @@ $(document).ready(function() {
         if (!result)
             return;
         activeTagCloud.addTag(result);
+    });
+
+    $(".input").on("input", function() {
+        $(".entry").removeClass("error");
+        console.log("a");
     });
 
     fillFormData(getEditedWord(), activeTagCloud, allTagCloud);
