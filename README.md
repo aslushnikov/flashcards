@@ -1,9 +1,6 @@
 # Flashcards, made simple
 
-<img width="300px" src="https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2027%2042.png"/>
 <img width="300px" src="https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2028%2006.png"/>
-<img width="300px" src="https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2030%2035.png"/>
-<img width="300px" src="https://dl.dropboxusercontent.com/u/9198587/Photo%2026-05-14%2001%2032%2055.png"/>
 
 ## Motivation
 
