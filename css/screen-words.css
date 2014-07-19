@@ -83,6 +83,7 @@
     flex-grow: 1;
     flex-basis: 30%;
     padding: 1ex;
+    word-wrap: break-word;
 }
 
 .entry .tags {
@@ -101,6 +102,7 @@
     flex-basis: 30%;
     text-align: right;
     padding: 1ex;
+    word-wrap: break-word;
 }
 
 .dictionary-container .section {
