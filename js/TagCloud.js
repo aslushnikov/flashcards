@@ -1,5 +1,8 @@
 (function(Flash) {
 
+/**
+ * @constructor
+ */
 Flash.TagCloud = function()
 {
     this.element = $("<div>").addClass("tagcloud");

@@ -1,5 +1,9 @@
 (function(Flash) {
 
+/**
+ * @constructor
+ * @param {!Element} dictionaryElement
+ */
 Flash.LazyTable = function(dictionaryElement)
 {
     var dictionary = $(dictionaryElement);

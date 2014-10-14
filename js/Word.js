@@ -1,5 +1,9 @@
 (function(Flash){
 
+/**
+ * @constructor
+ * @param {{original: string, translation: string, creationDate: number, id: number, tags: !Array.<string>}} payload
+ */
 Flash.Word = function(payload)
 {
     this._original = payload.original;
@@ -55,6 +59,11 @@ Flash.Word.prototype = {
     },
 }
 
+/**
+ * @param {!Flash.Word} word1
+ * @param {!Flash.Word} word2
+ * @return {number}
+ */
 Flash.Word.compareOriginals = function(word1, word2)
 {
     var o1 = word1.original().toUpperCase();
@@ -66,6 +75,10 @@ Flash.Word.compareOriginals = function(word1, word2)
     return 0;
 }
 
+/**
+ * @constructor
+ * @param {!Array.<!Flash.Word>} words
+ */
 Flash.WordCollection = function(words)
 {
     this._words = words;

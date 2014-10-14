@@ -1,5 +1,5 @@
 "use strict";
-window.Flash = {};
+var Flash = {};
 
 $(document).ready(function() {
     if (!window.bootstrapWords) {
@@ -9,3 +9,4 @@ $(document).ready(function() {
     Flash.words = Flash.WordCollection.parsePayload(window.bootstrapWords);
     delete window.bootstrapWords;
 });
+
