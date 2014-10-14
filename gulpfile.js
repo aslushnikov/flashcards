@@ -114,8 +114,7 @@ gulp.task("build/css/add-word", ["css-prefix"], function() {
     .pipe(gulp.dest("./public/stylesheets/"))
 });
 
-gulp.task("build/js/lib", function() {
-    gulp.src([
+var LIB_SOURCES = [
         "js/Flash.js",
         "js/EventEmitter.js",
         "js/Stub.js",
@@ -123,9 +122,19 @@ gulp.task("build/js/lib", function() {
         "js/WordsHelper.js",
         "js/LazyTable.js",
         "js/TagCloud.js",
-    ])
+];
+
+gulp.task("build/js/lib", function() {
+    gulp.src(LIB_SOURCES)
     .pipe(concat("lib.js"))
     .pipe(gulp.dest('./public/javascripts'))
+});
+
+gulp.task("lint", function() {
+    var exec = require("child_process").exec;
+    exec("bash scripts/compile.sh " + LIB_SOURCES.join(" "), { cwd: "." }, function(error, stdout, stderr) {
+        console.log(stderr);
+    });
 });
 
 gulp.task("build/css", [

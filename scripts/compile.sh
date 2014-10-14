@@ -1,0 +1,1 @@
+java -jar ./scripts/closure/compiler.jar --summary_detail_level 3 --compilation_level SIMPLE_OPTIMIZATIONS --warning_level VERBOSE --language_in ECMASCRIPT5 --accept_const_keyword --module_output_path_prefix --js --externs ./scripts/externs.js "$@"
