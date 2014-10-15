@@ -196,7 +196,9 @@ function matchFunction(filterValue, text)
 {
     if (!filterValue)
         return [];
-    var index = text.toUpperCase().indexOf(filterValue.toUpperCase());
+    var normalizedFilterValue = Flash.WordsHelper.removeDiacritics(filterValue.toUpperCase());
+    var normalizedText = Flash.WordsHelper.removeDiacritics(text.toUpperCase());
+    var index = normalizedText.indexOf(normalizedFilterValue);
     if (index === -1)
         return [];
     var result = [];
