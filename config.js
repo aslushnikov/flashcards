@@ -10,7 +10,8 @@ module.exports = {
     },
     auth: {
         realm: "http://localhost:3000",
-        cookieSessionSecret: "whatismysecret?!",
+        clientID: "<FILL ME>",
+        clientSecret: "<FILL ME>",
     },
     registration: {
         // if the user didn't fill in his password in an hour after
